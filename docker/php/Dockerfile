@@ -16,6 +16,8 @@ RUN docker-php-ext-install \
     pgsql \
     zip
 
+RUN pecl install redis \
+    && docker-php-ext-enable redis
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
 
