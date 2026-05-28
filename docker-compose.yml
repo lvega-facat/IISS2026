@@ -17,9 +17,11 @@ services:
 
     depends_on:
       - postgres
+      - redis
 
     networks:
       - laravel
+
 
   postgres:
     image: postgres:16
@@ -41,6 +43,21 @@ services:
 
     networks:
       - laravel
+
+
+  redis:
+    image: redis:7
+
+    container_name: laravel_redis
+
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+    networks:
+      - laravel
+
 
 volumes:
   postgres_data:
