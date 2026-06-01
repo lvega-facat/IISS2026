@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "e4067e2c35a3c9b8e2d96150ae45aad4",
+=======
+    "content-hash": "53b5d56b3b7e3cbac1713e68c8850f6c",
+>>>>>>> d1fc78e9e1423befdb1c660d0c09e46836dc6ef9
     "packages": [
         {
             "name": "brick/math",
@@ -6021,6 +6025,7 @@
     ],
     "packages-dev": [
         {
+<<<<<<< HEAD
             "name": "doctrine/dbal",
             "version": "4.4.3",
             "source": {
@@ -6175,6 +6180,8 @@
             "time": "2026-02-07T07:09:04+00:00"
         },
         {
+=======
+>>>>>>> d1fc78e9e1423befdb1c660d0c09e46836dc6ef9
             "name": "fakerphp/faker",
             "version": "v1.24.1",
             "source": {
@@ -7385,6 +7392,7 @@
             "time": "2026-02-18T12:37:06+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "psr/cache",
             "version": "3.0.0",
             "source": {
@@ -7497,6 +7505,8 @@
             "time": "2025-03-20T16:16:48+00:00"
         },
         {
+=======
+>>>>>>> d1fc78e9e1423befdb1c660d0c09e46836dc6ef9
             "name": "sebastian/cli-parser",
             "version": "3.0.2",
             "source": {
