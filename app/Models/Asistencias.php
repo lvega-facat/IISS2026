@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Asistencias
- * 
+ *
  * @property int $id
  * @property int $id_empleado
  * @property int $id_contrato
@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool|null $tiene_justificativo
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Empleados $empleados
  * @property Contratos $contratos
  * @property CatEstadosAsistencia $cat_estados_asistencia
