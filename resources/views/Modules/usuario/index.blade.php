@@ -3,7 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <h2>Bienvenido al dashboard</h2>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <p>Bienvenido al dashboard de tu aplicación Laravel.</p>
+    </div>
+    <div class="info-usuario">
+        <h1>Información del Usuario</h1>
+        @foreach($viewModel->getTodosLosUsuarios($usuarios) as $usuarioInfo)
 
-    <p>Contenido dinámico aquí</p>
+            <p>Nombre: {{ $usuarioInfo['nombre'] }}</p>
+        @endforeach
+    </div>
 @endsection
