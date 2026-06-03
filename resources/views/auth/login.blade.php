@@ -33,7 +33,7 @@
             text-align: center;
             margin-bottom: -120px;
             position: relative;
-            z-index: 10;
+            z-index: -1;
         }
 
         .logo img {
