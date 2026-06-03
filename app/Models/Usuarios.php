@@ -8,7 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Usuarios
@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Usuarios extends Model
+class Usuarios extends Authenticatable
 {
 	protected $table = 'usuarios';
 
@@ -68,6 +68,15 @@ class Usuarios extends Model
 		'bloqueado_hasta',
 		'ultimo_acceso'
 	];
+
+	protected $hidden = [
+		'password_hash',
+	];
+
+	public function getAuthPassword()
+	{
+		return $this->password_hash;
+	}
 
 	public function empleados()
 	{
