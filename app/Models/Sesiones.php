@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Sesiones
- * 
+ *
  * @property int $id
  * @property int $id_usuario
  * @property string|null $ip_address
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $fecha_inicio
  * @property Carbon|null $fecha_fin
  * @property bool|null $estado
- * 
+ *
  * @property Usuarios $usuarios
  *
  * @package App\Models
