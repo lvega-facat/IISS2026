@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Usuarios
@@ -42,7 +43,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App\Models
  */
-class Usuarios extends Model
+class Usuarios extends Authenticatable
 {
 	use SoftDeletes;
 
@@ -72,6 +73,15 @@ class Usuarios extends Model
 		'bloqueado_hasta',
 		'ultimo_acceso'
 	];
+
+	protected $hidden = [
+		'password_hash',
+	];
+
+	public function getAuthPassword()
+	{
+		return $this->password_hash;
+	}
 
 	public function empleados()
 	{
