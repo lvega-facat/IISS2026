@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sesiones extends Model
 {
 	protected $table = 'sesiones';
-	public $incrementing = false;
+	public $incrementing = true;
 	public $timestamps = false;
 
 	protected $casts = [

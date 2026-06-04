@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -202,16 +203,36 @@
         }
     </style>
 </head>
+
 <body>
+
     <div class="login-container">
+            @if ($errors->any())
+    <div style="
+        background:#ffdddd;
+        color:#a00000;
+        padding:10px;
+        border-radius:8px;
+        margin-bottom:20px;
+    ">
+        @foreach ($errors->all() as $error)
+        <div>{{ $error }}</div>
+        @endforeach
+    </div>
+    @endif
         <div class="logo">
             <img src="{{ asset('images/logo.png') }}" alt="HumanCore">
         </div>
 
-        <form class="login-card">
+        <form class="login-card" method="POST" action="{{ route('login.store') }}">
+            @csrf
             <div class="form-group">
-                <label for="cedula">Cedula</label>
-                <input type="number" id="cedula" name="cedula" placeholder="">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ old('email') }}">
             </div>
 
             <div class="form-group">
@@ -227,4 +248,5 @@
         </form>
     </div>
 </body>
+
 </html>

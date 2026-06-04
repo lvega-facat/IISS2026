@@ -25,15 +25,14 @@ class CheckPermissions
         Closure $next,
         string $permisoRequerido
     ) {
-        //$usuario = auth()->user();  CAMBIAR CUANDO ESTE LISTO LAS AUTENTICACIONES
-        $usuario = \App\Models\Usuarios::find(1); // Reemplazar 1 con el ID del usuario autenticado
+        $usuario = auth()->user();
 
         if (!$usuario) {
-            abort(401);
+           return redirect()->route('login')->withErrors(['message' => 'Debe iniciar sesión para acceder a esta página.']);
         }
 
         if (!$usuario->estado) {
-            abort(403, 'Usuario inactivo');
+            return redirect()->route('login')->withErrors(['message' => 'Su cuenta está inactiva.']);
         }
 
         $permisos = $this->obtenerPermisosUsuarioAction
@@ -52,7 +51,7 @@ class CheckPermissions
                 $permisoRequerido
             );
 
-            abort(403, 'No tiene permisos');
+            return redirect()->route('login')->withErrors(['message' => 'No tiene permisos para acceder a esta página.']);
         }
 
         return $next($request);

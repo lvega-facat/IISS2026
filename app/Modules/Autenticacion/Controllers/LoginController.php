@@ -11,7 +11,7 @@ class LoginController
 {
     public function show()
     {
-        return response('Login endpoint', 200);
+        return view('auth.login');
     }
 
     public function store(
