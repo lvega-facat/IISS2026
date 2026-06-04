@@ -17,20 +17,63 @@ class RolesPermisosTest extends TestCase
     public function test_crear_rol(): void
     {
         $response = $this->postJson('/roles', [
-            'nombre' => 'Administrador',
+            'nombre' => 'Administrador QA',
             'descripcion' => 'Rol principal',
         ]);
 
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('roles', [
-            'nombre' => 'Administrador',
+            'nombre' => 'Administrador QA',
+            'estado' => true,
         ]);
 
         $this->assertDatabaseHas('auditoria_log', [
             'modulo' => 'roles',
             'accion' => 'crear',
         ]);
+    }
+
+    public function test_crear_rol_con_permisos_del_seed(): void
+    {
+        $this->seed();
+
+        $modulo = Modulos::query()->where('slug', 'empleados')->firstOrFail();
+        $permisoVer = Permisos::query()
+            ->where('id_modulo', $modulo->id)
+            ->where('accion', 'ver')
+            ->firstOrFail();
+
+        $response = $this->postJson('/roles', [
+            'nombre' => 'Soporte',
+            'descripcion' => 'Rol con permisos asignados al crear',
+            'permisos' => [$permisoVer->id],
+        ]);
+
+        $response->assertStatus(201);
+
+        $role = Roles::query()->where('nombre', 'Soporte')->firstOrFail();
+
+        $this->assertDatabaseHas('rol_permiso', [
+            'id_rol' => $role->id,
+            'id_permiso' => $permisoVer->id,
+        ]);
+    }
+
+    public function test_no_se_pueden_asignar_permisos_inexistentes(): void
+    {
+        $role = Roles::create([
+            'nombre' => 'RolPrueba',
+            'descripcion' => 'Test',
+            'estado' => true,
+        ]);
+
+        $response = $this->postJson('/roles', [
+            'nombre' => 'Rol inválido',
+            'permisos' => [99999],
+        ]);
+
+        $response->assertStatus(422);
     }
 
     public function test_actualizar_rol(): void
@@ -61,11 +104,11 @@ class RolesPermisosTest extends TestCase
         ]);
     }
 
-    public function test_eliminar_rol(): void
+    public function test_eliminar_rol_es_softdelete(): void
     {
         $role = Roles::create([
             'nombre' => 'Temporal',
-            'descripcion' => 'Se eliminará',
+            'descripcion' => 'Se desactivará',
             'estado' => true,
         ]);
 
@@ -73,8 +116,10 @@ class RolesPermisosTest extends TestCase
 
         $response->assertOk();
 
-        $this->assertDatabaseMissing('roles', [
+        // El rol sigue en la DB pero con estado = false (soft delete)
+        $this->assertDatabaseHas('roles', [
             'id' => $role->id,
+            'estado' => 0,
         ]);
 
         $this->assertDatabaseHas('auditoria_log', [
@@ -83,8 +128,23 @@ class RolesPermisosTest extends TestCase
         ]);
     }
 
+    public function test_rol_eliminado_no_aparece_en_listado(): void
+    {
+        Roles::create(['nombre' => 'Activo', 'descripcion' => '', 'estado' => true]);
+        $inactivo = Roles::create(['nombre' => 'Inactivo', 'descripcion' => '', 'estado' => false]);
+
+        $response = $this->getJson('/roles');
+
+        $response->assertOk();
+        $nombres = collect($response->json())->pluck('nombre');
+        $this->assertTrue($nombres->contains('Activo'));
+        $this->assertFalse($nombres->contains('Inactivo'));
+    }
+
     public function test_asignar_permisos_a_rol(): void
     {
+        $this->seed();
+
         $role = Roles::create([
             'nombre' => 'Operador',
             'descripcion' => 'Rol con permisos',
@@ -119,15 +179,12 @@ class RolesPermisosTest extends TestCase
             'ultimo_acceso' => null,
         ]);
 
-        $modulo = Modulos::create([
-            'nombre' => 'Empleados',
-            'slug' => 'empleados',
-        ]);
-
-        $permisoVer = Permisos::create([
-            'id_modulo' => $modulo->id,
-            'accion' => 'Ver',
-        ]);
+        // Los permisos vienen del seed — no se crean en el test
+        $modulo = Modulos::query()->where('slug', 'empleados')->firstOrFail();
+        $permisoVer = Permisos::query()
+            ->where('id_modulo', $modulo->id)
+            ->where('accion', 'ver')
+            ->firstOrFail();
 
         $response = $this->postJson("/roles/{$role->id}/permisos", [
             'permisos' => [$permisoVer->id],

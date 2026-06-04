@@ -9,7 +9,6 @@ use App\Models\RolPermiso;
 use App\Models\Roles;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class AsignarPermisosRolAction
 {
@@ -22,7 +21,7 @@ class AsignarPermisosRolAction
 		], [
 			'id_rol' => ['required', 'integer', 'exists:roles,id'],
 			'permisos' => ['array'],
-			'permisos.*' => ['integer', 'distinct'],
+			'permisos.*' => ['integer', 'distinct', 'exists:permisos,id'],
 			'id_usuario' => ['required', 'integer', 'exists:usuarios,id'],
 		]);
 
@@ -37,18 +36,6 @@ class AsignarPermisosRolAction
 				->with('modulos')
 				->whereIn('id', $permisosIds)
 				->get();
-
-			if (count($permisosIds) !== $permisos->count()) {
-				throw ValidationException::withMessages([
-					'permisos' => ['Se detectaron permisos inexistentes.'],
-				]);
-			}
-
-			if ($permisos->contains(fn ($permiso) => $permiso->modulos === null)) {
-				throw ValidationException::withMessages([
-					'permisos' => ['Hay permisos asociados a módulos inexistentes.'],
-				]);
-			}
 
 			$currentIds = RolPermiso::query()
 				->where('id_rol', $roleId)

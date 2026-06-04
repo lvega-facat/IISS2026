@@ -15,16 +15,10 @@ class EliminarRolAction
 		return DB::transaction(function () use ($role, $context) {
 			$before = $role->toArray();
 			$accion = 'eliminar';
-			$resultado = ['eliminado' => true];
+			$resultado = ['eliminado' => false, 'desactivado' => true];
 
-			if ($role->usuarios()->exists()) {
-				$role->estado = false;
-				$role->save();
-				$accion = 'desactivar';
-				$resultado = ['eliminado' => false, 'desactivado' => true];
-			} else {
-				$role->delete();
-			}
+			$role->estado = false;
+			$role->save();
 
 			$this->registrarAuditoria(
 				$context,

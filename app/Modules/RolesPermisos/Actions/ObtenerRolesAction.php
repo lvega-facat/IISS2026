@@ -11,6 +11,7 @@ class ObtenerRolesAction
 	{
 		if ($id === null) {
 			return Roles::query()
+				->where('estado', true)
 				->orderBy('id')
 				->get();
 		}
