@@ -5,6 +5,7 @@ use App\Modules\RolesPermisos\Actions\ObtenerRolesAction;
 use App\Modules\RolesPermisos\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Modules\Usuarios\Controllers\UsuariosController;
 
 Route::get('/', function () {
     return view('welcome');

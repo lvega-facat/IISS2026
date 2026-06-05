@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sesiones', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->integer('id_usuario');
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->text('payload')->nullable();
-            $table->integer('last_activity')->nullable();
-            $table->timestamp('fecha_inicio')->nullable()->useCurrent();
-            $table->timestamp('fecha_fin')->nullable();
-            $table->boolean('estado')->nullable()->default(true);
-        });
+Schema::create('sesiones', function (Blueprint $table) {
+    $table->id();
+
+    $table->integer('id_usuario');
+    $table->string('ip_address', 45)->nullable();
+    $table->text('user_agent')->nullable();
+    $table->text('payload')->nullable();
+    $table->integer('last_activity')->nullable();
+    $table->timestamp('fecha_inicio')->nullable()->useCurrent();
+    $table->timestamp('fecha_fin')->nullable();
+    $table->boolean('estado')->default(true);
+});
     }
 
     /**
