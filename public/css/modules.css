@@ -1,0 +1,258 @@
+/* ==========================================================================
+   ESTILOS COMPARTIDOS PARA MÓDULOS (Tablas, Tarjetas, Dropdowns y Modales)
+   ========================================================================== */
+
+.cargo-page {
+    padding: 10px;
+}
+
+/* CARD SUPERIOR */
+.top-card {
+    border: none !important;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.top-card .card-body {
+    padding: 24px;
+}
+
+.btn-new {
+    background: #2b5292;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-new:hover {
+    background: #1e3d73;
+}
+
+
+
+/* TABLA CONTENEDORA */
+.table-card {
+    border: none !important;
+    border-radius: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+/* HEADER Y FILAS */
+.list-header,
+.cargo-row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(120px, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    width: max-content;
+    min-width: 100%;
+}
+
+/* CABECERA */
+.list-header {
+    background: #f4f6f8;
+    min-height: 60px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
+    border-bottom: 1px solid #eef2f5;
+}
+
+/* COLUMNAS */
+.header-col,
+.cargo-col {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* FILAS */
+.cargo-row {
+    min-height: 68px;
+    border-bottom: 1px solid #eef2f5;
+    background: #fff;
+    font-size: 0.92rem;
+    color: #475569;
+    transition: background-color 0.2s ease;
+}
+
+.cargo-row:hover {
+    background-color: #fcfdfe;
+}
+
+.cargo-row:last-child {
+    border-bottom: none;
+}
+
+/* ALINEACIONES */
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: right;
+}
+
+/* MENSAJE VACÍO */
+.table-empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: #64748b;
+}
+
+.table-empty i {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+}
+/* ESTADOS BADGES (Estilo Pastel Redondeado) */
+.status-badge {
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.status-badge.active {
+    background-color: #a3f7bf !important;
+    color: #15803d !important;
+}
+
+.status-badge.inactive {
+    background-color: #fca5a5 !important;
+    color: #991b1b !important;
+}
+
+/* BOTÓN DE TRES PUNTOS AL FINAL */
+.action-btn {
+    background: none;
+    border: none;
+    font-size: 1.15rem;
+    color: #000000;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f1f5f9;
+    color: #2b5292;
+}
+
+/* MENÚ DROPDOWN */
+.dropdown-menu {
+    border-radius: 10px;
+    padding: 6px 0;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+/* MODAL ESTILO PERSONALIZADO */
+.custom-modal-content {
+    border: none !important;
+    border-radius: 40px !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: #fff;
+}
+
+.text-secondary-custom {
+    color: #495057;
+    font-size: 1.15rem;
+}
+
+.fs-7 {
+    font-size: 0.82rem;
+}
+
+/* INPUTS REDONDEADOS Y LIMPIOS */
+.form-label-custom {
+    display: block;
+    font-size: 0.95rem;
+    color: #4a4a4a;
+    margin-bottom: 6px;
+    padding-left: 4px;
+    font-weight: 500;
+}
+
+.form-control-custom {
+    width: 100%;
+    height: 46px;
+    padding: 10px 20px;
+    font-size: 0.92rem;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: #b5c7e3;
+    box-shadow: 0 0 0 3px rgba(181, 199, 227, 0.25);
+}
+
+.form-select-custom {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%234a4a4a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 12px;
+}
+
+/* BOTONES DE ACCIÓN INFERIORES */
+.modal-actions-container {
+    padding: 0 10px;
+}
+
+.btn-cancel-custom {
+    background-color: #bd0909 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    padding: 12px 40px;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel-custom:hover {
+    background-color: #990505 !important;
+}
+
+.btn-create-custom {
+    background-color: #1e3d73 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    padding: 12px 45px;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-create-custom:hover {
+    background-color: #152c54 !important;
+}
