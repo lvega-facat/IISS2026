@@ -1,4 +1,4 @@
-<div class="modal fade" id="createCargoModal" tabindex="-1" aria-labelledby="createCargoModalLabel" aria-hidden="true">
+<div class="modal fade" id="editCargoModal" tabindex="-1" aria-labelledby="editCargoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-content">
 
@@ -80,7 +80,7 @@
 
                         <button
                             type="submit"
-                            class="btn btn-create-custom">
+                            class="btn btn-edit-custom">
                             EDITAR
                         </button>
 
