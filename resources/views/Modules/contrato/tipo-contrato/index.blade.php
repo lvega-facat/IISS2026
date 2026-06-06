@@ -324,8 +324,8 @@
 
 </div>
 
-@include('Modules.contrato.components.modal-edit')
-@include('Modules.contrato.components.modal-create')
+@include('Modules.contrato.tipo-contrato.components.modal-edit')
+@include('Modules.contrato.tipo-contrato.components.modal-create')
 
 @endsection
 
