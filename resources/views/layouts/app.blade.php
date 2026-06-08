@@ -58,7 +58,8 @@
                     id="configOrgSubmenu"
                     data-bs-parent="#sidebarMenu">
 
-                    <li><a href="#organizacion">Organización</a></li>
+                    <li><a href="{{ route('organizacion.index') }}">Organización</a></li>
+
                     <li><a href="#departamentos">Departamentos</a></li>
                     <li><a href="#cargos">Cargos</a></li>
                 </ul>
