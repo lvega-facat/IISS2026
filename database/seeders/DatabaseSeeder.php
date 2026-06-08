@@ -19,12 +19,31 @@ class DatabaseSeeder extends Seeder
 
         // Clear existing data (optional but ensures clean state)
         $tables = [
-            'auditoria_log', 'cambios_permisos', 'justificativos', 'asistencias',
-            'planilla_detalles', 'planillas', 'contratos', 'sesiones',
-            'usuarios', 'empleados', 'cargos', 'departamento_dependiente',
-            'departamentos', 'tipos_contrato', 'horarios_trabajo', 'profesiones',
-            'rol_permiso', 'permisos', 'modulos', 'roles', 'tipos_pago',
-            'frecuencias_pago', 'cat_estados_asistencia', 'organizaciones', 'users'
+            'auditoria_log',
+            'cambios_permisos',
+            'justificativos',
+            'asistencias',
+            'planilla_detalles',
+            'planillas',
+            'contratos',
+            'sesiones',
+            'usuarios',
+            'empleados',
+            'cargos',
+            'departamento_dependiente',
+            'departamentos',
+            'tipos_contrato',
+            'horarios_trabajo',
+            'profesiones',
+            'rol_permiso',
+            'permisos',
+            'modulos',
+            'roles',
+            'tipos_pago',
+            'frecuencias_pago',
+            'cat_estados_asistencia',
+            'organizaciones',
+            'users'
         ];
         foreach ($tables as $table) {
             DB::table($table)->truncate();
@@ -339,39 +358,79 @@ class DatabaseSeeder extends Seeder
         // -------------------- 11. EMPLEADOS --------------------
         $empleados = [
             [
-                'nombre' => 'Ana', 'apellido' => 'García', 'email' => 'ana.garcia@empresademo.com',
-                'dni_ci' => '12345678', 'telefono' => '987654321', 'tipo_trabajo' => 'tiempo_completo',
-                'descripcion' => 'Gerente General', 'foto_url' => null, 'estado' => true,
-                'id_departamento' => $departamentoIds[0], 'id_cargo' => $cargos['gerente_general'],
-                'id_profesion' => $profesionIds[1], 'fecha_registro' => '2021-01-10'
+                'nombre' => 'Ana',
+                'apellido' => 'García',
+                'email' => 'ana.garcia@empresademo.com',
+                'dni_ci' => '12345678',
+                'telefono' => '987654321',
+                'tipo_trabajo' => 'tiempo_completo',
+                'descripcion' => 'Gerente General',
+                'foto_url' => null,
+                'estado' => true,
+                'id_departamento' => $departamentoIds[0],
+                'id_cargo' => $cargos['gerente_general'],
+                'id_profesion' => $profesionIds[1],
+                'fecha_registro' => '2021-01-10'
             ],
             [
-                'nombre' => 'Carlos', 'apellido' => 'Lopez', 'email' => 'carlos.lopez@empresademo.com',
-                'dni_ci' => '87654321', 'telefono' => '912345678', 'tipo_trabajo' => 'tiempo_completo',
-                'descripcion' => 'Jefe de Tecnología', 'foto_url' => null, 'estado' => true,
-                'id_departamento' => $departamentoIds[1], 'id_cargo' => $cargos['jefe_tecnologia'],
-                'id_profesion' => $profesionIds[0], 'fecha_registro' => '2021-03-15'
+                'nombre' => 'Carlos',
+                'apellido' => 'Lopez',
+                'email' => 'carlos.lopez@empresademo.com',
+                'dni_ci' => '87654321',
+                'telefono' => '912345678',
+                'tipo_trabajo' => 'tiempo_completo',
+                'descripcion' => 'Jefe de Tecnología',
+                'foto_url' => null,
+                'estado' => true,
+                'id_departamento' => $departamentoIds[1],
+                'id_cargo' => $cargos['jefe_tecnologia'],
+                'id_profesion' => $profesionIds[0],
+                'fecha_registro' => '2021-03-15'
             ],
             [
-                'nombre' => 'María', 'apellido' => 'Rodríguez', 'email' => 'maria.rodriguez@empresademo.com',
-                'dni_ci' => '11223344', 'telefono' => '998877665', 'tipo_trabajo' => 'tiempo_completo',
-                'descripcion' => 'Desarrolladora Senior', 'foto_url' => null, 'estado' => true,
-                'id_departamento' => $departamentoIds[1], 'id_cargo' => $cargos['desarrollador'],
-                'id_profesion' => $profesionIds[0], 'fecha_registro' => '2021-06-20'
+                'nombre' => 'María',
+                'apellido' => 'Rodríguez',
+                'email' => 'maria.rodriguez@empresademo.com',
+                'dni_ci' => '11223344',
+                'telefono' => '998877665',
+                'tipo_trabajo' => 'tiempo_completo',
+                'descripcion' => 'Desarrolladora Senior',
+                'foto_url' => null,
+                'estado' => true,
+                'id_departamento' => $departamentoIds[1],
+                'id_cargo' => $cargos['desarrollador'],
+                'id_profesion' => $profesionIds[0],
+                'fecha_registro' => '2021-06-20'
             ],
             [
-                'nombre' => 'Juan', 'apellido' => 'Perez', 'email' => 'juan.perez@empresademo.com',
-                'dni_ci' => '55667788', 'telefono' => '955443322', 'tipo_trabajo' => 'tiempo_completo',
-                'descripcion' => 'Analista de RRHH', 'foto_url' => null, 'estado' => true,
-                'id_departamento' => $departamentoIds[2], 'id_cargo' => $cargos['analista_rrhh'],
-                'id_profesion' => $profesionIds[3], 'fecha_registro' => '2022-02-01'
+                'nombre' => 'Juan',
+                'apellido' => 'Perez',
+                'email' => 'juan.perez@empresademo.com',
+                'dni_ci' => '55667788',
+                'telefono' => '955443322',
+                'tipo_trabajo' => 'tiempo_completo',
+                'descripcion' => 'Analista de RRHH',
+                'foto_url' => null,
+                'estado' => true,
+                'id_departamento' => $departamentoIds[2],
+                'id_cargo' => $cargos['analista_rrhh'],
+                'id_profesion' => $profesionIds[3],
+                'fecha_registro' => '2022-02-01'
             ],
             [
-                'nombre' => 'Luisa', 'apellido' => 'Fernández', 'email' => 'luisa.fernandez@empresademo.com',
-                'dni_ci' => '99887766', 'telefono' => '966332211', 'tipo_trabajo' => 'tiempo_completo',
-                'descripcion' => 'Contadora', 'foto_url' => null, 'estado' => true,
-                'id_departamento' => $departamentoIds[3], 'id_cargo' => $cargos['contador'],
-                'id_profesion' => $profesionIds[2], 'fecha_registro' => '2022-05-10'
+                'nombre' => 'Luisa',
+                'apellido' => 'Fernández',
+                'email' => 'luisa.fernandez@empresademo.com',
+                'dni_ci' => '99887766',
+                'telefono' => '966332211',
+                'tipo_trabajo' => 'tiempo_completo',
+                'descripcion' => 'Contadora',
+                'foto_url' => null,
+                'estado' => true,
+                'id_departamento' => $departamentoIds[3],
+                'id_cargo' => $cargos['contador'],
+                'id_profesion' => $profesionIds[2],
+                'fecha_registro' => '2022-05-10'
             ],
         ];
         $empleadoIds = [];
@@ -629,8 +688,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // -------------------- 19. ADICIONAL: SESSIONES (opcional) --------------------
+        // En DatabaseSeeder.php, línea ~632
         DB::table('sessions')->insert([
-            'id' => 'test_session_1',
+            'id' => 'test_session_' . uniqid(),  // ← Dinámico
             'user_id' => $adminUser,
             'ip_address' => '127.0.0.1',
             'user_agent' => 'Mozilla/5.0 (Seeder)',
