@@ -8,7 +8,8 @@ use App\Modules\RolesPermisos\Enums\Permisos;
 Route::prefix('usuarios')->name('usuarios.')->controller(UsuariosController::class)->middleware(['auth'])->group(function () {
     // Listar usuarios (vista principal)
     Route::get('/', 'index')->name('index')->middleware('permisos:' . Permisos::USUARIOS_VER);
-    
+    Route::get('/create', 'create')->name('create')->middleware('permisos:' . Permisos::USUARIOS_CREAR);
+    Route::get('/{id}/edit', 'edit')->name('edit')->middleware('permisos:' . Permisos::USUARIOS_EDITAR);
     // Crear usuario
     Route::post('/', 'store')->middleware('permisos:' . Permisos::USUARIOS_CREAR);
     

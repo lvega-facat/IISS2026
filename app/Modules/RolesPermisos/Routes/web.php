@@ -8,6 +8,10 @@ Route::prefix('roles')->middleware(['auth'])->group(function () {
     // Usando las constantes del enum
     Route::get('/', [RoleController::class, 'index'])
         ->middleware('permisos:' . Permisos::ROLES_PERMISOS_VER);
+    Route::get('/create', [RoleController::class, 'create'])
+        ->middleware('permisos:' . Permisos::ROLES_PERMISOS_CREAR);
+    Route::get('/{id}/edit', [RoleController::class, 'edit'])
+        ->middleware('permisos:' . Permisos::ROLES_PERMISOS_EDITAR);
     
     Route::post('/', [RoleController::class, 'store'])
         ->middleware('permisos:' . Permisos::ROLES_PERMISOS_CREAR);

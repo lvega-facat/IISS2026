@@ -10,7 +10,16 @@ class OrganizacionController extends Controller
     {
         return view('Modules.Organizacion.index');
     }
-
+    public function create()
+    {
+        return view('Modules.Organizacion.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id)
+    {
+        return view('Modules.Organizacion.form');
+        // Lógica para mostrar el formulario de edición
+    }
     public function store()
     {
         // Lógica para crear

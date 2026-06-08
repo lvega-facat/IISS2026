@@ -10,6 +10,15 @@ class PlanillasController extends Controller
     {
         return view('Modules.Planillas.index');
     }
+    public function create()
+    {
+        return view('Modules.Planillas.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id){
+        return view('Modules.Planillas.form');
+        // Lógica para mostrar el formulario de edición
+    }
 
     public function store()
     {

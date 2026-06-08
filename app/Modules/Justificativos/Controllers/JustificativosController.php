@@ -10,6 +10,15 @@ class JustificativosController extends Controller
     {
         return view('Modules.Justificativos.index');
     }
+    public function create()
+    {
+        return view('Modules.Justificativos.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id){
+        return view('Modules.Justificativos.form');
+        // Lógica para mostrar el formulario de edición
+    }
 
     public function store()
     {

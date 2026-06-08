@@ -10,6 +10,15 @@ class ProfesionesController extends Controller
     {
         return view('Modules.Contratos.Profesiones.index');
     }
+    public function create()
+    {
+        return view('Modules.Contratos.Profesiones.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id){
+        return view('Modules.Contratos.Profesiones.form');
+        // Lógica para mostrar el formulario de edición
+    }
 
     public function store()
     {

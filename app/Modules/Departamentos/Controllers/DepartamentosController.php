@@ -10,6 +10,16 @@ class DepartamentosController extends Controller
     {
         return view('Modules.Departamentos.index');
     }
+    public function create()
+    {
+        return view('Modules.Departamentos.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id)
+    {
+        return view('Modules.Departamentos.form');
+        // Lógica para mostrar el formulario de edición
+    }
 
     public function store()
     {

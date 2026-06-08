@@ -10,6 +10,15 @@ class TiposContratoController extends Controller
     {
         return view('Modules.Contratos.TiposContrato.index');
     }
+    public function create()
+    {
+        return view('Modules.Contratos.TiposContrato.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit($id){
+        return view('Modules.Contratos.TiposContrato.form');
+        // Lógica para mostrar el formulario de edición
+    }
 
     public function store()
     {

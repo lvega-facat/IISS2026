@@ -28,6 +28,14 @@ class RoleController extends Controller
 	{
 		return view('Modules.RolesPermisos.index');
 	}
+	public function create(): View
+	{
+		return view('Modules.RolesPermisos.form');
+	}
+	public function edit(int $id): View
+	{
+		return view('Modules.RolesPermisos.form');
+	}
 	public function store(Request $request): RedirectResponse
 	{
 		$role = $this->crearRolAction->handle($request->all(), $this->buildContext($request));

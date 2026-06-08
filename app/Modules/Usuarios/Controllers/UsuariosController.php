@@ -37,6 +37,17 @@ class UsuariosController extends Controller
         return view('Modules.Usuarios.index');
     }
 
+    public function create()
+    {
+        return view('Modules.Usuarios.form');
+        // Lógica para mostrar el formulario de creación
+    }
+    public function edit(string $id)
+    {
+        $usuario = Usuarios::findOrFail($id);
+        return view('Modules.Usuarios.form', compact('usuario'));
+        // Lógica para mostrar el formulario de edición
+    }
     /**
      * Store a newly created resource in storage.
      */
