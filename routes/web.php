@@ -13,7 +13,6 @@ Route::get('/', function () {
 */
 
 Route::get('/login', [LoginController::class, 'show'])->name('login');
-
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
 /*
@@ -25,3 +24,4 @@ Route::get('/departamentos', [DepartamentoController::class, 'index'])
 
 Route::post('/departamentos', [DepartamentoController::class, 'store'])
     ->name('departamentos.store');
+
