@@ -11,6 +11,8 @@ use App\Modules\RolesPermisos\Actions\ObtenerPermisosPorModuloAction;
 use App\Modules\RolesPermisos\Actions\ObtenerRolesAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class RoleController extends Controller
 {
@@ -18,52 +20,37 @@ class RoleController extends Controller
 		private readonly CrearRolAction $crearRolAction,
 		private readonly ActualizarRolAction $actualizarRolAction,
 		private readonly EliminarRolAction $eliminarRolAction,
-		private readonly ObtenerRolesAction $obtenerRolesAction,
 		private readonly AsignarPermisosRolAction $asignarPermisosRolAction,
-		private readonly ObtenerPermisosPorModuloAction $obtenerPermisosPorModuloAction,
 	) {
 	}
 
-	public function index(): JsonResponse
+	public function index(): View
 	{
-		return response()->json($this->obtenerRolesAction->handle());
+		return view('Modules.RolesPermisos.index');
 	}
-
-	public function show(int $id): JsonResponse
-	{
-		return response()->json($this->obtenerRolesAction->handle($id));
-	}
-
-	public function store(Request $request): JsonResponse
+	public function store(Request $request): RedirectResponse
 	{
 		$role = $this->crearRolAction->handle($request->all(), $this->buildContext($request));
 
-		return response()->json($role, 201);
+		return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
 	}
 
-	public function update(Request $request, int $id): JsonResponse
+	public function update(Request $request, int $id): RedirectResponse
 	{
 		$role = $this->actualizarRolAction->handle($id, $request->all(), $this->buildContext($request));
 
-		return response()->json($role);
+		return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente.');
 	}
 
-	public function destroy(Request $request, int $id): JsonResponse
+	public function destroy(Request $request, int $id): RedirectResponse
 	{
 		$result = $this->eliminarRolAction->handle($id, $this->buildContext($request));
 
-		return response()->json($result);
+		return redirect()->route('roles.index')->with('success', 'Rol eliminado exitosamente.');
 	}
 
-	public function permisosPorModulo(Request $request): JsonResponse
-	{
-		$roleId = $request->query('id_rol');
-		$roleId = $roleId !== null ? (int) $roleId : null;
 
-		return response()->json($this->obtenerPermisosPorModuloAction->handle($roleId));
-	}
-
-	public function asignarPermisos(Request $request, int $id): JsonResponse
+	public function asignarPermisos(Request $request, int $id): RedirectResponse
 	{
 		$result = $this->asignarPermisosRolAction->handle(
 			$id,
@@ -71,7 +58,7 @@ class RoleController extends Controller
 			$this->buildContext($request),
 		);
 
-		return response()->json($result);
+		return redirect()->route('roles.index')->with('success', 'Permisos asignados exitosamente.');
 	}
 
 	private function buildContext(Request $request): array

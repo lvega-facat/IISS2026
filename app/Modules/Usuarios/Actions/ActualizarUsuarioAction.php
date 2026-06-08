@@ -3,23 +3,46 @@
 namespace App\Modules\Usuarios\Actions;
 
 use App\Models\Usuarios;
+use App\Models\Empleados;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ActualizarUsuarioAction
 {
-    public function handle(Usuarios $usuario, array $data): array
+    public function execute(Usuarios $usuario, array $data): Usuarios
     {
-        $update = [
-            'id_rol' => $data['id_rol'],
-            'estado' => $data['estado'] ?? $usuario->estado,
-        ];
-
-        if (!empty($data['password_hash'])) {
-            $update['password_hash'] = Hash::make($data['password_hash']);
+        // Verificar si el empleado ya tiene un usuario asociado (excluyendo el actual)
+        if (isset($data['id_empleado']) && $data['id_empleado']) {
+            $existingUser = Usuarios::where('id_empleado', $data['id_empleado'])
+                ->where('id', '!=', $usuario->id)
+                ->first();
+            
+            if ($existingUser) {
+                throw ValidationException::withMessages([
+                    'id_empleado' => ['Este empleado ya tiene un usuario asociado.']
+                ]);
+            }
         }
 
-        $usuario->update($update);
+        // Preparar datos para actualizar
+        $updateData = [
+            'id_empleado' => $data['id_empleado'] ?? null,
+            'id_rol' => $data['id_rol'],
+            'id_organizacion' => $data['id_organizacion'],
+            'nombre' => $data['nombre'],
+            'apellido' => $data['apellido'],
+            'email' => $data['email'],
+            'foto_url' => $data['foto_url'] ?? null,
+            'estado' => $data['estado'] ?? true,
+        ];
 
-        return ['status' => 'success', 'usuario' => $usuario];
+        // Actualizar contraseña solo si se proporciona
+        if (!empty($data['password'])) {
+            $updateData['password_hash'] = Hash::make($data['password']);
+        }
+
+        $usuario->update($updateData);
+
+        return $usuario;
     }
 }
