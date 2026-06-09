@@ -44,38 +44,27 @@
         </div>
     @endif
 
-    {{-- TABLA PRINCIPAL --}}
-<div class="card table-card">
+{{-- TABLA PRINCIPAL --}}
+<div class="card table-card" style="--table-columns: 200px 1fr 130px 160px 80px;">
 
     {{-- FILTROS --}}
     <div class="table-toolbar">
-
         <div class="search-container">
-            <input
-                type="text"
-                class="search-input"
-                placeholder="Buscar rol por nombre"
-            >
+            <input type="text" class="search-input" placeholder="Buscar rol por nombre">
         </div>
 
         <div class="filter-group">
-
             <select class="filter-select">
                 <option value="">Estado</option>
                 <option value="1">Activo</option>
                 <option value="0">Inactivo</option>
             </select>
-
-            <button class="btn-search">
-                Buscar
-            </button>
-
+            <button class="btn-search">Buscar</button>
         </div>
-
     </div>
 
-    {{-- CABECERA --}}
-    <div class="roles-list-header">
+    {{-- CABECERA (Cambiado a list-header para que tome los px) --}}
+    <div class="list-header">
         <div>Nombre del Rol</div>
         <div>Descripción</div>
         <div class="text-center">Estado</div>
@@ -83,283 +72,105 @@
         <div class="text-end">Acciones</div>
     </div>
 
-    {{-- FILA - Administrador --}}
-    <div class="roles-row">
+    {{-- FILA - Administrador (Cambiado a cargo-row para que tome los px) --}}
+    <div class="cargo-row">
         <div class="role-name">Administrador</div>
         <div class="role-desc">Acceso total al sistema</div>
-
         <div class="text-center">
-            <span class="status-badge active">
-                Activo
-            </span>
+            <span class="status-badge active">Activo</span>
         </div>
-
         <div>12/01/2025</div>
-
         <div class="text-end">
-
             <div class="dropdown">
-                <button
-                    class="action-btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                >
+                <button class="action-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
-
                 <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-                        <a
-                            href="{{ route('roles.edit', 1) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-pencil me-2"></i>
-                            Editar
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('roles.permissions', 1) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-lock me-2"></i>
-                            Permisos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#"
-                        class="dropdown-item text-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#eliminarModal1">
-                            <i class="fa fa-trash me-2"></i>
-                            Eliminar
-                        </a>
-                    </li>
-
+                    <li><a href="{{ route('roles.edit', 1) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
+                    <li><a href="{{ route('roles.permissions', 1) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
+                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal1"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 
     {{-- FILA - Supervisor --}}
-    <div class="roles-row">
+    <div class="cargo-row">
         <div class="role-name">Supervisor</div>
         <div class="role-desc">Gestión de equipos y reportes</div>
-
         <div class="text-center">
-            <span class="status-badge active">
-                Activo
-            </span>
+            <span class="status-badge active">Activo</span>
         </div>
-
         <div>15/01/2025</div>
-
         <div class="text-end">
-
             <div class="dropdown">
-                <button
-                    class="action-btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                >
+                <button class="action-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
-
                 <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-                        <a
-                            href="{{ route('roles.edit', 2) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-pencil me-2"></i>
-                            Editar
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('roles.permissions', 2) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-lock me-2"></i>
-                            Permisos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#"
-                        class="dropdown-item text-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#eliminarModal2">
-                            <i class="fa fa-trash me-2"></i>
-                            Eliminar
-                        </a>
-                    </li>
-
+                    <li><a href="{{ route('roles.edit', 2) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
+                    <li><a href="{{ route('roles.permissions', 2) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
+                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal2"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 
     {{-- FILA - Operador --}}
-    <div class="roles-row">
+    <div class="cargo-row">
         <div class="role-name">Operador</div>
         <div class="role-desc">Carga y consulta de datos operativos</div>
-
         <div class="text-center">
-            <span class="status-badge inactive">
-                Inactivo
-            </span>
+            <span class="status-badge inactive">Inactivo</span>
         </div>
-
         <div>20/02/2025</div>
-
         <div class="text-end">
-
             <div class="dropdown">
-                <button
-                    class="action-btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                >
+                <button class="action-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
-
                 <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-                        <a
-                            href="{{ route('roles.edit', 3) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-pencil me-2"></i>
-                            Editar
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('roles.permissions', 3) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-lock me-2"></i>
-                            Permisos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#"
-                        class="dropdown-item text-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#eliminarModal3">
-                            <i class="fa fa-trash me-2"></i>
-                            Eliminar
-                        </a>
-                    </li>
-
+                    <li><a href="{{ route('roles.edit', 3) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
+                    <li><a href="{{ route('roles.permissions', 3) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
+                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal3"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 
     {{-- FILA - Auditor --}}
-    <div class="roles-row">
+    <div class="cargo-row">
         <div class="role-name">Auditor</div>
-        <div class="role-desc">
-            Solo lectura con acceso a registros de auditoría
-        </div>
-
+        <div class="role-desc">Solo lectura con acceso a registros de auditoría</div>
         <div class="text-center">
-            <span class="status-badge active">
-                Activo
-            </span>
+            <span class="status-badge active">Activo</span>
         </div>
-
         <div>05/03/2025</div>
-
         <div class="text-end">
-
             <div class="dropdown">
-                <button
-                    class="action-btn"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                >
+                <button class="action-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
-
                 <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-                        <a
-                            href="{{ route('roles.edit', 4) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-pencil me-2"></i>
-                            Editar
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('roles.permissions', 4) }}"
-                            class="dropdown-item"
-                        >
-                            <i class="fa fa-lock me-2"></i>
-                            Permisos
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#"
-                        class="dropdown-item text-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#eliminarModal4">
-                            <i class="fa fa-trash me-2"></i>
-                            Eliminar
-                        </a>
-                    </li>
-
+                    <li><a href="{{ route('roles.edit', 4) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
+                    <li><a href="{{ route('roles.permissions', 4) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
+                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal4"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 
     {{-- PAGINACIÓN --}}
     <div class="custom-pagination">
-
-        <button class="page-nav">
-            <i class="fa fa-angle-left"></i>
-            Atrás
-        </button>
-
+        <button class="page-nav"><i class="fa fa-angle-left"></i> Atrás</button>
         <div class="page-numbers">
-
             <button class="page-item active">1</button>
             <button class="page-item">2</button>
             <button class="page-item">3</button>
-
-            <span class="pagination-dots">
-                ...
-            </span>
-
+            <span class="pagination-dots">...</span>
             <button class="page-item">10</button>
-
         </div>
-
-        <button class="page-nav">
-            Siguiente
-            <i class="fa fa-angle-right"></i>
-        </button>
-
+        <button class="page-nav">Siguiente <i class="fa fa-angle-right"></i></button>
     </div>
 
 </div>
