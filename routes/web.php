@@ -16,6 +16,14 @@ Route::get('/roles', function () {
     return view('Modules.RolesPermisos.index');
 })->name('roles.index');
 
+Route::get('/roles/gestionarPrivilegio', function () {
+    return view('Modules.RolesPermisos.gestionarPrivilegio');
+})->name('roles.gestion');
+
+Route::get('/roles/{id}/permisos', function ($id) {
+    return view('Modules.RolesPermisos.gestionarPrivilegio', compact('id'));
+})->name('roles.permissions');
+
 Route::get('/roles/create', function () {
     return view('Modules.RolesPermisos.form');
 })->name('roles.create');
