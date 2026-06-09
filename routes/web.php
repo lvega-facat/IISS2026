@@ -3,6 +3,7 @@
 use App\Modules\Autenticacion\Controllers\LoginController;
 use App\Http\Controllers\DepartamentoController;
 use Illuminate\Support\Facades\Route;
+use App\Modules\Usuarios\Controllers\UsuariosController;
 
 Route::get('/', function () {
     return view('welcome');

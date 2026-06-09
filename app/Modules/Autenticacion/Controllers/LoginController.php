@@ -6,10 +6,11 @@ use App\Modules\Autenticacion\Actions\GestionarIntentoFallidoAction;
 use App\Modules\Autenticacion\Actions\LoginAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LoginController
 {
-    public function show()
+    public function show(): View
     {
         return view('auth.login');
     }

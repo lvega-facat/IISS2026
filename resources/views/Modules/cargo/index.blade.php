@@ -286,7 +286,6 @@
 </div>
 
 </div>
-</div>
 @include('Modules.cargo.components.modal-edit')
 @include('Modules.cargo.components.modal-create')
 @endsection
