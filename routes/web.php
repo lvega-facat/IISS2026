@@ -8,11 +8,11 @@ use App\Modules\Usuarios\Controllers\UsuariosController;
 Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
+//rutas para login
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
-    Route::get('/login', [LoginController::class, 'show'])->name('login');
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-});
-
+//rutas para profesiones
 Route::prefix('profesiones')->group(function () {
     Route::get('/', [ProfesionesController::class, 'index'])->name('profesiones.index');
     Route::get('/crear', [ProfesionesController::class, 'create'])->name('profesiones.create');
