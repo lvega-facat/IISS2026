@@ -46,10 +46,11 @@ class DepartamentosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre'=> 'required|string|max:255',
-            'codigo'=> 'required|string|max:100',
-            'funcion_principal'=> 'required|string|max:255',
-            'descripcion'=> 'nullable|string',
+            'nombre'               => 'required|string|max:255',
+            'codigo'               => 'required|string|max:100',
+            'funcion_principal'    => 'required|string|max:255',
+            'descripcion'          => 'nullable|string',
+            'id_departamento_padre'=> 'nullable|integer|exists:departamentos,id',
         ]);
 
         $organizacion = Organizaciones::first();
