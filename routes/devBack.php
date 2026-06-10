@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Cache;
 //test de permisos
 Route::get('/test-permisos', function () {
     return 'OK';
-})->middleware('permission:empleados.crear');
+})->middleware('auth');
 
 
 Route::get('/cache-test', function () {
