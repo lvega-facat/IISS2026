@@ -7,14 +7,16 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     libpq-dev \
-    libzip-dev
+    libzip-dev \
+    nodejs \
+    npm
 
 # Extensiones PHP necesarias
 RUN docker-php-ext-install \
     pdo \
     pdo_pgsql \
     pgsql \
-    zip
+    zip 
 
 RUN pecl install redis \
     && docker-php-ext-enable redis
