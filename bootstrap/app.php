@@ -14,12 +14,16 @@ return Application::configure(basePath: dirname(__DIR__))
         if (app()->environment('local')) {
             Route::middleware('web')
                 ->group(base_path('routes/dev.php'));
+            Route::middleware('web')
+                ->group(base_path('routes/devBack.php'));
         }
 
     },
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        //
+    ->withMiddleware(function ($middleware) {
+        $middleware->alias([
+            'permisos' => \App\Modules\RolesPermisos\Middleware\CheckPermissions::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
