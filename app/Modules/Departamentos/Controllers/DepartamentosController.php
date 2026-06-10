@@ -3,36 +3,171 @@
 namespace App\Modules\Departamentos\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departamentos;
+use App\Models\Organizaciones;
+use App\Models\DepartamentoDependiente;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+use App\Modules\Departamentos\Actions\CrearDepartamentoAction;
+use App\Modules\Departamentos\Actions\ActualizarDepartamentoAction;
+use App\Modules\Departamentos\Actions\ActivarDepartamentoAction;
+use App\Modules\Departamentos\Actions\DesactivarDepartamentoAction;
 
 class DepartamentosController extends Controller
 {
+    public function __construct(
+        protected CrearDepartamentoAction $crearDepartamentoAction,
+        protected ActualizarDepartamentoAction $actualizarDepartamentoAction,
+        protected ActivarDepartamentoAction $activarDepartamentoAction,
+        protected DesactivarDepartamentoAction $desactivarDepartamentoAction,
+    ) {}
+
     public function index()
     {
-        return view('Modules.Departamentos.index');
+        $departamentos = Departamentos::with('organizaciones')->get();
+
+        return view('Modules.Departamentos.index', compact('departamentos'));
     }
+
     public function create()
     {
-        return view('Modules.Departamentos.form');
-        // Lógica para mostrar el formulario de creación
-    }
-    public function edit($id)
-    {
-        return view('Modules.Departamentos.form');
-        // Lógica para mostrar el formulario de edición
+        $organizacion = Organizaciones::first();
+
+        if (!$organizacion) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'Debe existir una organización registrada');
+        }
+
+        return view('Modules.Departamentos.form', compact('organizacion'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        // Lógica para crear
+        $request->validate([
+            'nombre'=> 'required|string|max:255',
+            'codigo'=> 'required|string|max:100',
+            'funcion_principal'=> 'required|string|max:255',
+            'descripcion'=> 'nullable|string',
+        ]);
+
+        $organizacion = Organizaciones::first();
+
+        if (!$organizacion) {
+            return back()
+                ->with('error', 'Debe existir una organización registrada')
+                ->withInput();
+        }
+
+        $duplicado = Departamentos::where('id_organizacion', $organizacion->id)
+            ->whereRaw('LOWER(nombre) = ?', [strtolower($request->nombre)])
+            ->exists();
+
+        if ($duplicado) {
+            return back()
+                ->withErrors(['nombre'=> 'Ya existe un departamento con ese nombre'])
+                ->withInput();
+        }
+
+        $this->crearDepartamentoAction->execute(
+            array_merge($request->all(), ['id_organizacion'=> $organizacion->id])
+        );
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento creado correctamente');
     }
 
-    public function update()
+    public function edit(int $id)
     {
-        // Lógica para actualizar
+        $departamento = Departamentos::findOrFail($id);
+
+        return view('Modules.Departamentos.form', compact('departamento'));
     }
 
-    public function destroy()
+    public function update(Request $request, int $id)
     {
-        // Lógica para eliminar
+        $request->validate([
+            'nombre'=> 'required|string|max:255',
+            'codigo'=> 'required|string|max:100',
+            'funcion_principal'=> 'required|string|max:255',
+            'descripcion'=> 'nullable|string',
+        ]);
+
+        try {
+            $departamento = Departamentos::findOrFail($id);
+        } catch (ModelNotFoundException) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'Departamento no encontrado');
+        }
+
+        $duplicado = Departamentos::where('id_organizacion', $departamento->id_organizacion)
+            ->where('id', '!=', $id)
+            ->whereRaw('LOWER(nombre) = ?', [strtolower($request->nombre)])
+            ->exists();
+
+        if ($duplicado) {
+            return back()
+                ->withErrors(['nombre'=> 'Ya existe un departamento con ese nombre'])
+                ->withInput();
+        }
+
+        $this->actualizarDepartamentoAction->execute($departamento, $request->all());
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento actualizado correctamente');
+    }
+
+    public function activar(int $id)
+    {
+        try {
+            $departamento = Departamentos::findOrFail($id);
+        } catch (ModelNotFoundException) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'Departamento no encontrado');
+        }
+
+        $this->activarDepartamentoAction->execute($departamento);
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento activado correctamente');
+    }
+
+    public function desactivar(int $id)
+    {
+        try {
+            $departamento = Departamentos::findOrFail($id);
+        } catch (ModelNotFoundException) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'Departamento no encontrado');
+        }
+
+        $tieneEmpleados = $departamento->empleados()->where('estado', true)->exists();
+
+        if ($tieneEmpleados) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'No se puede eliminar el departamento porque tiene empleados asociados.');
+        }
+
+        $tieneHijos = DepartamentoDependiente::where('id_departamento_padre', $id)->exists();
+
+        if ($tieneHijos) {
+            return redirect()
+                ->route('departamentos.index')
+                ->with('error', 'No se puede eliminar el departamento porque tiene departamentos dependientes.');
+        }
+
+        $this->desactivarDepartamentoAction->execute($departamento);
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento desactivado correctamente');
     }
 }
