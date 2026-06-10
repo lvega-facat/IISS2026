@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    
+
     @stack('styles')
 </head>
 
@@ -80,10 +80,33 @@
                     data-bs-parent="#sidebarMenu">
 
                     <li><a href="#empleados">Empleados</a></li>
-                    <li><a href="#contratos">Contratos</a></li>
                     <li><a href="#justificativos">Justificativos</a></li>
                 </ul>
             </li>
+
+            <!-- Configuración de Contratos -->
+<li>
+    <a href="#configContratosSubmenu"
+       class="nav-link-custom dropdown-toggle"
+       data-bs-toggle="collapse"
+       aria-expanded="false">
+
+        <i class="fa fa-file-text me-2"></i>
+        Contratos
+    </a>
+
+    <ul class="collapse list-unstyled submenu"
+        id="configContratosSubmenu"
+        data-bs-parent="#sidebarMenu">
+
+        <li><a href="#Profesiones">Profesiones</a></li>
+        <li><a href="#Horarios">Horarios</a></li>
+        <li><a href="#tiposdepago">Tipos de Pago</a></li>
+        <li><a href="#frecuencias">Frecuencias</a></li>
+        <li><a href="#tiposDeContrado">Tipos de Contrato</a></li>
+
+    </ul>
+</li>
 
             <!-- Control de Asistencia -->
             <li>
