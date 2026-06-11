@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <form action="#" method="POST">
+    <form action="{{ route('roles.asignarPermisos', $rol->id) }}" method="POST">
         @csrf
 
         <div class="row g-4">
@@ -52,7 +52,7 @@
                             <input
                                 type="text"
                                 class="form-control-custom fw-bold bg-light"
-                                value="Administrador"
+                                value="{{ $rol->nombre }}"
                                 readonly
                             >
                             
@@ -90,105 +90,29 @@
                         {{-- CUADRÍCULA DE MÓDULOS (2 columnas en escritorio) --}}
                         <div class="row row-cols-1 row-cols-md-2 g-3">
 
-                            {{-- MÓDULO: USUARIOS --}}
+                            @foreach($modulos as $modulo)
                             <div class="col">
                                 <div class="perms-module-block h-100">
                                     <div class="perms-module-title">
-                                        <i class="fa fa-users me-2 text-secondary"></i>
-                                        Usuarios
+                                        <i class="fa fa-cube me-2 text-secondary"></i>
+                                        {{ $modulo->nombre }}
                                     </div>
 
                                     <div class="perms-checks">
+                                        @foreach($modulo->permisos as $permiso)
                                         <label class="perm-check-label">
-                                            <input type="checkbox" checked> Ver
+                                            <input
+                                                type="checkbox"
+                                                name="permisos[]"
+                                                value="{{ $permiso->id }}"
+                                                {{ in_array($permiso->id, $permisosAsignados) ? 'checked' : '' }}
+                                            > {{ ucfirst($permiso->accion) }}
                                         </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Crear
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Editar
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Eliminar
-                                        </label>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- MÓDULO: ROLES --}}
-                            <div class="col">
-                                <div class="perms-module-block h-100">
-                                    <div class="perms-module-title">
-                                        <i class="fa fa-shield-halved me-2 text-secondary"></i>
-                                        Roles y Permisos
-                                    </div>
-
-                                    <div class="perms-checks">
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Ver
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Crear
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Editar
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Eliminar
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- MÓDULO: CARGOS --}}
-                            <div class="col">
-                                <div class="perms-module-block h-100">
-                                    <div class="perms-module-title">
-                                        <i class="fa fa-briefcase me-2 text-secondary"></i>
-                                        Cargos
-                                    </div>
-
-                                    <div class="perms-checks">
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Ver
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Crear
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Editar
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Eliminar
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- MÓDULO: REPORTES --}}
-                            <div class="col">
-                                <div class="perms-module-block h-100">
-                                    <div class="perms-module-title">
-                                        <i class="fa fa-chart-bar me-2 text-secondary"></i>
-                                        Reportes
-                                    </div>
-
-                                    <div class="perms-checks">
-                                        <label class="perm-check-label">
-                                            <input type="checkbox" checked> Ver
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Crear
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Editar
-                                        </label>
-                                        <label class="perm-check-label">
-                                            <input type="checkbox"> Eliminar
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div> {{-- Fin de la cuadrícula de módulos --}}
 

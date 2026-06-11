@@ -48,20 +48,22 @@
 <div class="card table-card" style="--table-columns: 200px 1fr 130px 160px 80px;">
 
     {{-- FILTROS --}}
+    <form method="GET" action="{{ route('roles.index') }}">
     <div class="table-toolbar">
         <div class="search-container">
-            <input type="text" class="search-input" placeholder="Buscar rol por nombre">
+            <input type="text" name="nombre" class="search-input" placeholder="Buscar rol por nombre" value="{{ request('nombre') }}">
         </div>
 
         <div class="filter-group">
-            <select class="filter-select">
+            <select name="estado" class="filter-select">
                 <option value="">Estado</option>
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>
+                <option value="1" {{ request('estado') === '1' ? 'selected' : '' }}>Activo</option>
+                <option value="0" {{ request('estado') === '0' ? 'selected' : '' }}>Inactivo</option>
             </select>
-            <button class="btn-search">Buscar</button>
+            <button type="submit" class="btn-search">Buscar</button>
         </div>
     </div>
+    </form>
 
     {{-- CABECERA (Cambiado a list-header para que tome los px) --}}
     <div class="list-header">
@@ -72,113 +74,68 @@
         <div class="text-end">Acciones</div>
     </div>
 
-    {{-- FILA - Administrador (Cambiado a cargo-row para que tome los px) --}}
+    {{-- FILAS DINÁMICAS --}}
+    @forelse($roles as $rol)
     <div class="cargo-row">
-        <div class="role-name">Administrador</div>
-        <div class="role-desc">Acceso total al sistema</div>
+        <div class="role-name">{{ $rol->nombre }}</div>
+        <div class="role-desc">{{ $rol->descripcion ?? '—' }}</div>
         <div class="text-center">
-            <span class="status-badge active">Activo</span>
+            <span class="status-badge {{ $rol->estado ? 'active' : 'inactive' }}">
+                {{ $rol->estado ? 'Activo' : 'Inactivo' }}
+            </span>
         </div>
-        <div>12/01/2025</div>
+        <div>{{ $rol->created_at?->format('d/m/Y') ?? '—' }}</div>
         <div class="text-end">
             <div class="dropdown">
                 <button class="action-btn" type="button" data-bs-toggle="dropdown">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a href="{{ route('roles.edit', 1) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
-                    <li><a href="{{ route('roles.permissions', 1) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
-                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal1"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
+                    <li><a href="{{ route('roles.edit', $rol->id) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
+                    <li><a href="{{ route('roles.permissions', $rol->id) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
+                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ $rol->id }}"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
                 </ul>
             </div>
         </div>
     </div>
-
-    {{-- FILA - Supervisor --}}
+    @empty
     <div class="cargo-row">
-        <div class="role-name">Supervisor</div>
-        <div class="role-desc">Gestión de equipos y reportes</div>
-        <div class="text-center">
-            <span class="status-badge active">Activo</span>
-        </div>
-        <div>15/01/2025</div>
-        <div class="text-end">
-            <div class="dropdown">
-                <button class="action-btn" type="button" data-bs-toggle="dropdown">
-                    <i class="fa fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a href="{{ route('roles.edit', 2) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
-                    <li><a href="{{ route('roles.permissions', 2) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
-                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal2"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
-                </ul>
-            </div>
+        <div class="text-center text-muted py-3" style="grid-column: 1 / -1;">
+            No se encontraron roles.
         </div>
     </div>
-
-    {{-- FILA - Operador --}}
-    <div class="cargo-row">
-        <div class="role-name">Operador</div>
-        <div class="role-desc">Carga y consulta de datos operativos</div>
-        <div class="text-center">
-            <span class="status-badge inactive">Inactivo</span>
-        </div>
-        <div>20/02/2025</div>
-        <div class="text-end">
-            <div class="dropdown">
-                <button class="action-btn" type="button" data-bs-toggle="dropdown">
-                    <i class="fa fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a href="{{ route('roles.edit', 3) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
-                    <li><a href="{{ route('roles.permissions', 3) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
-                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal3"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    {{-- FILA - Auditor --}}
-    <div class="cargo-row">
-        <div class="role-name">Auditor</div>
-        <div class="role-desc">Solo lectura con acceso a registros de auditoría</div>
-        <div class="text-center">
-            <span class="status-badge active">Activo</span>
-        </div>
-        <div>05/03/2025</div>
-        <div class="text-end">
-            <div class="dropdown">
-                <button class="action-btn" type="button" data-bs-toggle="dropdown">
-                    <i class="fa fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a href="{{ route('roles.edit', 4) }}" class="dropdown-item"><i class="fa fa-pencil me-2"></i>Editar</a></li>
-                    <li><a href="{{ route('roles.permissions', 4) }}" class="dropdown-item"><i class="fa fa-lock me-2"></i>Permisos</a></li>
-                    <li><a href="#" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal4"><i class="fa fa-trash me-2"></i>Eliminar</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @endforelse
 
     {{-- PAGINACIÓN --}}
     <div class="custom-pagination">
-        <button class="page-nav"><i class="fa fa-angle-left"></i> Atrás</button>
+        <button class="page-nav" {{ $roles->onFirstPage() ? 'disabled' : '' }} onclick="{{ $roles->onFirstPage() ? 'void(0)' : 'window.location=\''.($roles->previousPageUrl() ?? '#').'\'' }}">
+            <i class="fa fa-angle-left"></i> Atrás
+        </button>
         <div class="page-numbers">
-            <button class="page-item active">1</button>
-            <button class="page-item">2</button>
-            <button class="page-item">3</button>
-            <span class="pagination-dots">...</span>
-            <button class="page-item">10</button>
+            @php
+                $current = $roles->currentPage();
+                $last    = $roles->lastPage();
+            @endphp
+
+            @for($page = 1; $page <= $last; $page++)
+                @if($page === 1 || $page === $last || abs($page - $current) <= 1)
+                    <button class="page-item {{ $current === $page ? 'active' : '' }}"
+                        onclick="window.location='{{ $roles->url($page) }}'">{{ $page }}</button>
+                @elseif($page === $current - 2 || $page === $current + 2)
+                    <span class="pagination-dots">...</span>
+                @endif
+            @endfor
         </div>
-        <button class="page-nav">Siguiente <i class="fa fa-angle-right"></i></button>
+        <button class="page-nav" {{ !$roles->hasMorePages() ? 'disabled' : '' }} onclick="{{ $roles->hasMorePages() ? 'window.location=\''.($roles->nextPageUrl() ?? '#').'\'' : 'void(0)' }}">
+            Siguiente <i class="fa fa-angle-right"></i>
+        </button>
     </div>
 
 </div>
 
-@include('Modules.RolesPermisos.components.modal-eliminar', ['id' => 1, 'nombre' => 'Administrador'])
-@include('Modules.RolesPermisos.components.modal-eliminar', ['id' => 2, 'nombre' => 'Supervisor'])
-@include('Modules.RolesPermisos.components.modal-eliminar', ['id' => 3, 'nombre' => 'Operador'])
-@include('Modules.RolesPermisos.components.modal-eliminar', ['id' => 4, 'nombre' => 'Auditor'])
+@foreach($roles as $rol)
+    @include('Modules.RolesPermisos.components.modal-eliminar', ['id' => $rol->id, 'nombre' => $rol->nombre])
+@endforeach
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/modules.css') }}">
