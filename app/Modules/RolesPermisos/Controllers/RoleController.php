@@ -68,13 +68,17 @@ class RoleController extends Controller
 
 	public function asignarPermisos(Request $request, int $id): RedirectResponse
 	{
-		$result = $this->asignarPermisosRolAction->handle(
-			$id,
-			$request->input('permisos', []),
-			$this->buildContext($request),
-		);
+		try {
+			$this->asignarPermisosRolAction->handle(
+				$id,
+				array_map('intval', $request->input('permisos', [])),
+				$this->buildContext($request),
+			);
 
-		return redirect()->route('roles.index')->with('success', 'Permisos asignados exitosamente.');
+			return redirect()->route('roles.index')->with('success', 'Permisos guardados exitosamente.');
+		} catch (\Throwable $e) {
+			return redirect()->back()->with('error', 'No se pudieron guardar los permisos: ' . $e->getMessage());
+		}
 	}
 
 	private function buildContext(Request $request): array

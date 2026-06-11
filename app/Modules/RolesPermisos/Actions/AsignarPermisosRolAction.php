@@ -22,7 +22,7 @@ class AsignarPermisosRolAction
 			'id_rol' => ['required', 'integer', 'exists:roles,id'],
 			'permisos' => ['array'],
 			'permisos.*' => ['integer', 'distinct', 'exists:permisos,id'],
-			'id_usuario' => ['required', 'integer', 'exists:usuarios,id'],
+			'id_usuario' => ['nullable', 'integer', 'exists:usuarios,id'],
 		]);
 
 		$validator->validate();
@@ -75,7 +75,7 @@ class AsignarPermisosRolAction
 				}
 			}
 
-			if (!empty($cambios)) {
+			if (!empty($cambios) && ($context['id_usuario'] ?? null)) {
 				CambiosPermisos::query()->insert($cambios);
 			}
 
@@ -98,7 +98,7 @@ class AsignarPermisosRolAction
 	private function crearCambioPermiso(array $context, int $roleId, Permisos $permiso, string $tipo): array
 	{
 		return [
-			'id_usuario' => $context['id_usuario'],
+			'id_usuario' => $context['id_usuario'] ?? null,
 			'id_rol' => $roleId,
 			'id_modulo' => $permiso->id_modulo,
 			'accion' => sprintf('%s:%s', $tipo, $permiso->accion),

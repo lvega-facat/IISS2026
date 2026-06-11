@@ -78,10 +78,10 @@
                             
                             {{-- ACCIONES GLOBALES REUBICADAS --}}
                             <div class="d-flex gap-2">
-                                <button type="button" class="btn-perms-global">
+                                <button type="button" class="btn-perms-global" id="btnSeleccionarTodo">
                                     <i class="fa fa-check-square me-2 text-success"></i>Seleccionar todo
                                 </button>
-                                <button type="button" class="btn-perms-global">
+                                <button type="button" class="btn-perms-global" id="btnDeseleccionarTodo">
                                     <i class="fa fa-square me-2 text-muted"></i>Deseleccionar todo
                                 </button>
                             </div>
@@ -144,4 +144,18 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/modules.css') }}">
     <link rel="stylesheet" href="{{ asset('css/roles.css') }}">
+@endpush
+
+@push('scripts')
+<script>
+    const checkboxes = () => document.querySelectorAll('input[name="permisos[]"]');
+
+    document.getElementById('btnSeleccionarTodo').addEventListener('click', () => {
+        checkboxes().forEach(cb => cb.checked = true);
+    });
+
+    document.getElementById('btnDeseleccionarTodo').addEventListener('click', () => {
+        checkboxes().forEach(cb => cb.checked = false);
+    });
+</script>
 @endpush
