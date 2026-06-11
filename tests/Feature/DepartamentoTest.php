@@ -23,7 +23,6 @@ class DepartamentoTest extends TestCase
         parent::setUp();
         $this->seed();
     }
-
     public function test_crear_departamento()
     {
         $action = new CrearDepartamentoAction();
@@ -38,12 +37,45 @@ class DepartamentoTest extends TestCase
 
         $this->assertInstanceOf(Departamentos::class, $departamento);
         $this->assertTrue($departamento->estado);
+
         $this->assertDatabaseHas('departamentos', [
+            'id'     => $departamento->id,
             'nombre' => 'Marketing',
             'codigo' => 'MKT',
         ]);
+
+        $this->assertDatabaseMissing('departamento_dependiente', [
+            'id_departamento_hijo' => $departamento->id,
+        ]);
     }
 
+    public function test_crear_departamento_con_dependencia()
+    {
+        $padre = Departamentos::firstOrFail();
+
+        $action = new CrearDepartamentoAction();
+
+        $departamento = $action->execute([
+            'id_organizacion'        => $padre->id_organizacion,
+            'nombre'                 => 'Mesa de Ayuda',
+            'codigo'                 => 'HELP',
+            'funcion_principal'      => 'Soporte interno',
+            'descripcion'            => 'Departamento de soporte',
+            'id_departamento_padre'  => $padre->id,
+            'tipo_dependencia'       => 'jerarquica',
+        ]);
+
+        $this->assertDatabaseHas('departamentos', [
+            'id'     => $departamento->id,
+            'nombre' => 'Mesa de Ayuda',
+        ]);
+
+        $this->assertDatabaseHas('departamento_dependiente', [
+            'id_departamento_padre' => $padre->id,
+            'id_departamento_hijo'  => $departamento->id,
+            'tipo_dependencia'      => 'jerarquica',
+        ]);
+    }
     public function test_actualizar_departamento()
     {
         $departamento = Departamentos::first();
@@ -139,8 +171,8 @@ class DepartamentoTest extends TestCase
     public function test_update_rechaza_nombre_duplicado_en_misma_organizacion()
     {
         $departamentos = Departamentos::take(2)->get();
-        $primero  = $departamentos[0]; 
-        $segundo  = $departamentos[1]; 
+        $primero  = $departamentos[0];
+        $segundo  = $departamentos[1];
 
         $response = $this->actingAs($this->adminUser())
             ->put(route('departamentos.update', $segundo->id), [
