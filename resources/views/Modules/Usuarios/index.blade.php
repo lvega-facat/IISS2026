@@ -37,7 +37,7 @@
 
     {{-- TABLA PRINCIPAL --}}
     <div class="card table-card"
-         style="--table-columns: 120px 120px 1fr 110px 130px 100px 140px 130px 60px;">
+         style="--table-columns: 1fr 1fr 1.5fr 1fr 1.2fr 0.9fr 1.3fr 1.3fr 0.7fr;">
 
         {{-- FILTROS --}}
         <div class="table-toolbar">
@@ -73,7 +73,6 @@
                 </select>
 
                 <button class="btn-search">Buscar</button>
-                <button class="btn-clear">Limpiar</button>
 
             </div>
 
