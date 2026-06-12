@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function ($middleware) {
         $middleware->alias([
-            'permission' => \App\Modules\RolesPermisos\Middleware\CheckPermissions::class,
+            'permisos' => \App\Modules\RolesPermisos\Middleware\CheckPermissions::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

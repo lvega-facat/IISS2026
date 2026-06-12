@@ -8,6 +8,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -28,6 +30,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $ultimo_acceso
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * 
  * @property Empleados|null $empleados
  * @property Roles $roles
@@ -42,6 +45,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Usuarios extends Authenticatable
 {
+	use SoftDeletes;
+
 	protected $table = 'usuarios';
 
 	protected $casts = [

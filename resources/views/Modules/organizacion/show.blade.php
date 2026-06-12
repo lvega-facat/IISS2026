@@ -7,7 +7,7 @@
 <div class="text-center p-5">
     <h3>No existe organización registrada</h3>
 
-    <a href="{{ route('organizacion.form') }}" class="btn btn-primary mt-3">
+    <a class="btn btn-primary mt-3">
         Registrar Organización
     </a>
 </div>
@@ -83,12 +83,11 @@
 
     <div class="mt-4">
 
-        <a href="{{ route('organizacion.form') }}" class="btn btn-primary">
+        <a class="btn btn-primary">
             Editar organización
         </a>
 
-        <form action="{{ route('organizacion.destroy', $organizacion->id) }}"
-              method="POST"
+        <form 
               style="display:inline">
             @csrf
             @method('DELETE')

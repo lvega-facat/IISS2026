@@ -17,7 +17,8 @@
         </div>
     </div>
     
-    <div class="card table-card">
+    <div class="table-card"
+     style="--table-columns: 80px 2fr 1.5fr 1.8fr 120px 100px;">
 
     {{-- FILTROS --}}
     <div class="table-toolbar">

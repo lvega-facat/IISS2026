@@ -42,6 +42,7 @@ class Sesiones extends Model
 	];
 
 	protected $fillable = [
+		'id',
 		'id_usuario',
 		'ip_address',
 		'user_agent',
