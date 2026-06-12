@@ -8,9 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
 
-Route::get('/login', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+Route::middleware('guest')->group(function (): void {
+    Route::get('/login', [LoginController::class, 'show'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+});
 
+<<<<<<< HEAD
 // Rutas de Roles y Permisos
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
@@ -21,3 +24,5 @@ Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.de
 Route::get('/roles/{id}/permisos', [RoleController::class, 'gestionarPermisos'])->name('roles.permissions');
 Route::post('/roles/{id}/asignar-permisos', [RoleController::class, 'asignarPermisos'])->name('roles.asignarPermisos');
 
+=======
+>>>>>>> 58c90d7c6ae79467ba10fba4939c912fede5a7a1

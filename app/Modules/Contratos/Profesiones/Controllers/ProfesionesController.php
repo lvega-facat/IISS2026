@@ -3,6 +3,11 @@
 namespace App\Modules\Contratos\Profesiones\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profesiones;
+use App\Modules\Contratos\Profesiones\Actions\ActualizarProfesionAction;
+use App\Modules\Contratos\Profesiones\Actions\CrearProfesionAction;
+use App\Modules\Contratos\Profesiones\Actions\DesactivarProfesionAction;
+use Illuminate\Http\Request;
 
 class ProfesionesController extends Controller
 {
@@ -10,28 +15,57 @@ class ProfesionesController extends Controller
     {
         return view('Modules.Contratos.Profesiones.index');
     }
+
     public function create()
     {
         return view('Modules.Contratos.Profesiones.form');
-        // Lógica para mostrar el formulario de creación
     }
-    public function edit($id){
+
+    public function store(Request $request)
+    {
+        $validado = $request->validate([
+            'nombre' => 'required|string|max:255|unique:profesiones,nombre',
+            'descripcion' => 'nullable|string|max:1000',
+        ]);
+
+        (new CrearProfesionAction())($validado);
+
+        return redirect('/')->with('success', 'Profesión creada exitosamente');
+    }
+
+    public function show($id)
+    {
+        $profesion = Profesiones::findOrFail($id);
+        return view('Modules.Contratos.Profesiones.show', compact('profesion'));
+    }
+
+    public function edit($id)
+    {
         return view('Modules.Contratos.Profesiones.form');
-        // Lógica para mostrar el formulario de edición
     }
 
-    public function store()
+    public function update(Request $request, $id)
     {
-        // Lógica para crear
+        $profesion = Profesiones::findOrFail($id);
+
+        $validado = $request->validate([
+            'nombre' => 'required|string|max:255|unique:profesiones,nombre,' . $id,
+            'descripcion' => 'nullable|string|max:1000',
+            'estado' => 'required|boolean',
+        ]);
+
+        (new ActualizarProfesionAction())($profesion, $validado);
+
+        return redirect('/')->with('success', 'Profesión actualizada exitosamente');
     }
 
-    public function update()
+    public function destroy($id)
     {
-        // Lógica para actualizar
-    }
+        $profesion = Profesiones::findOrFail($id);
 
-    public function destroy()
-    {
-        // Lógica para eliminar
+        (new DesactivarProfesionAction())($profesion);
+
+        return redirect('/')->with('success', 'Profesión desactivada exitosamente');
     }
 }
+
