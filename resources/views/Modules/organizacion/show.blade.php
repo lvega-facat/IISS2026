@@ -2,21 +2,26 @@
 
 @section('content')
 
-@if(isset($organizacion) && $organizacion)
+@if(!isset($organizacion) || !$organizacion)
 
 <div class="text-center p-5">
+
     <h3>No existe organización registrada</h3>
 
-    <a href="{{ route('organizacion.form') }}" class="btn btn-primary mt-3">
+    <a href="{{ route('organizacion.form') }}"
+       class="btn btn-primary mt-3">
         Registrar Organización
     </a>
+
 </div>
 
 @else
 
 <div class="card p-4">
 
-    <h3 class="mb-4">{{ $organizacion->nombre }}</h3>
+    <h3 class="mb-4">
+        {{ $organizacion->nombre }}
+    </h3>
 
     <div class="row">
 
@@ -66,43 +71,46 @@
         </div>
 
         <div class="col-md-12 mt-3">
+
             <strong>Logo:</strong>
 
             <div class="mt-2">
-                @if($organizacion->logo_url)
+
+                @if(!empty($organizacion->logo_url))
                     <img src="{{ asset('storage/'.$organizacion->logo_url) }}"
-                         width="150"
-                         class="img-thumbnail">
+                         class="img-thumbnail"
+                         style="max-height:150px;">
                 @else
-                    <p class="text-muted">Sin logo</p>
+                    <p class="text-muted">
+                        Sin logo
+                    </p>
                 @endif
+
             </div>
+
         </div>
 
     </div>
 
     <div class="mt-4">
 
-        <a href="{{ route('organizacion.form') }}" class="btn btn-primary">
-            Editar organización
+        <a href="{{ route('organizacion.form') }}"
+           class="btn btn-primary">
+            Editar Organización
         </a>
 
-        <form action="{{ route('organizacion.destroy', $organizacion->id) }}"
-              method="POST"
-              style="display:inline">
-            @csrf
-            @method('DELETE')
-
-            <button class="btn btn-danger"
-                    onclick="return confirm('¿Seguro que deseas eliminar?')">
-                Eliminar
-            </button>
-
-        </form>
+        <button type="button"
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#modalEliminar">
+            Eliminar
+        </button>
 
     </div>
 
 </div>
+
+@include('Modules.organizacion.components.modal-eliminar')
 
 @endif
 
