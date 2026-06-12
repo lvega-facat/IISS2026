@@ -20,18 +20,30 @@ class CrearUsuarioAction
                 ]);
             }
         }
+        //validar datos
+        $validatedData = validator($data, [
+            'id_empleado' => 'nullable|exists:empleados,id',
+            'id_rol' => 'required|exists:roles,id',
+            'id_organizacion' => 'required|exists:organizaciones,id',
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required|string|min:8|confirmed',
+            'foto_url' => 'nullable|url',
+            'estado' => 'boolean',
+        ])->validate();
 
         // Crear el usuario
         $usuario = Usuarios::create([
-            'id_empleado' => $data['id_empleado'] ?? null,
-            'id_rol' => $data['id_rol'],
-            'id_organizacion' => $data['id_organizacion'],
-            'nombre' => $data['nombre'],
-            'apellido' => $data['apellido'],
-            'email' => $data['email'],
-            'password_hash' => Hash::make($data['password']),
-            'foto_url' => $data['foto_url'] ?? null,
-            'estado' => $data['estado'] ?? true,
+            'id_empleado' => $validatedData['id_empleado'] ?? null,
+            'id_rol' => $validatedData['id_rol'],
+            'id_organizacion' => $validatedData['id_organizacion'],
+            'nombre' => $validatedData['nombre'],
+            'apellido' => $validatedData['apellido'],
+            'email' => $validatedData['email'],
+            'password_hash' => Hash::make($validatedData['password']),
+            'foto_url' => $validatedData['foto_url'] ?? null,
+            'estado' => $validatedData['estado'] ?? true,
             'intentos_fallidos' => 0,
             'bloqueado_hasta' => null,
             'ultimo_acceso' => null,
