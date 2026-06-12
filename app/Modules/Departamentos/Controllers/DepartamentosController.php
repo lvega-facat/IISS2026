@@ -3,36 +3,72 @@
 namespace App\Modules\Departamentos\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class DepartamentosController extends Controller
 {
     public function index()
     {
-        return view('Modules.Departamentos.index');
+        // MOCK / O SERVICIO REAL
+        $departamentos = []; // aquí luego va tu query paginada
+
+        return view('Modules.Departamentos.index', compact('departamentos'));
     }
+
     public function create()
     {
-        return view('Modules.Departamentos.form');
-        // Lógica para mostrar el formulario de creación
+        $departamentosPadre = []; // luego viene del modelo
+
+        return view('Modules.Departamentos.form', compact('departamentosPadre'));
     }
+
     public function edit($id)
     {
-        return view('Modules.Departamentos.form');
-        // Lógica para mostrar el formulario de edición
+        $departamento = null; // luego: Departamento::findOrFail($id)
+        $departamentosPadre = []; // lista para el select
+
+        return view('Modules.Departamentos.form', compact(
+            'departamento',
+            'departamentosPadre'
+        ));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        // Lógica para crear
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required',
+            'funcion_principal' => 'required',
+        ]);
+
+        // lógica de creación
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento creado correctamente');
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
-        // Lógica para actualizar
+        $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required',
+            'funcion_principal' => 'required',
+        ]);
+
+        // lógica de actualización
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Departamento actualizado correctamente');
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        // Lógica para eliminar
+        // lógica eliminar o activar/desactivar
+
+        return redirect()
+            ->route('departamentos.index')
+            ->with('success', 'Acción realizada correctamente');
     }
 }
