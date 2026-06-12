@@ -14,14 +14,18 @@ class ModuleRouteServiceProvider extends ServiceProvider
 
         foreach (File::directories($modulesPath) as $module) {
 
-            $webRoutes = $module . '/routes/web.php';
+            $webRoutes = File::exists($module . '/Routes/web.php')
+                ? $module . '/Routes/web.php'
+                : $module . '/routes/web.php';
 
             if (File::exists($webRoutes)) {
                 Route::middleware('web')
                     ->group($webRoutes);
             }
 
-            $apiRoutes = $module . '/routes/api.php';
+            $apiRoutes = File::exists($module . '/Routes/api.php')
+                ? $module . '/Routes/api.php'
+                : $module . '/routes/api.php';
 
             if (File::exists($apiRoutes)) {
                 Route::prefix('api')

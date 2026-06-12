@@ -14,7 +14,7 @@ class RolesPermisosViewModel
         $query = Roles::query()->orderBy('created_at', 'desc');
 
         if ($request->filled('nombre')) {
-            $query->where('nombre', 'like', '%' . $request->nombre . '%');
+            $query->where('nombre', 'ilike', '%' . $request->nombre . '%');
         }
 
         if ($request->filled('estado') && $request->estado !== '') {
