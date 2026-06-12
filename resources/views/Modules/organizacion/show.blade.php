@@ -2,21 +2,25 @@
 
 @section('content')
 
-@if(isset($organizacion) && $organizacion)
+@if(!isset($organizacion) || !$organizacion)
 
 <div class="text-center p-5">
+
     <h3>No existe organización registrada</h3>
 
     <a class="btn btn-primary mt-3">
         Registrar Organización
     </a>
+
 </div>
 
 @else
 
 <div class="card p-4">
 
-    <h3 class="mb-4">{{ $organizacion->nombre }}</h3>
+    <h3 class="mb-4">
+        {{ $organizacion->nombre }}
+    </h3>
 
     <div class="row">
 
@@ -66,17 +70,23 @@
         </div>
 
         <div class="col-md-12 mt-3">
+
             <strong>Logo:</strong>
 
             <div class="mt-2">
-                @if($organizacion->logo_url)
+
+                @if(!empty($organizacion->logo_url))
                     <img src="{{ asset('storage/'.$organizacion->logo_url) }}"
-                         width="150"
-                         class="img-thumbnail">
+                         class="img-thumbnail"
+                         style="max-height:150px;">
                 @else
-                    <p class="text-muted">Sin logo</p>
+                    <p class="text-muted">
+                        Sin logo
+                    </p>
                 @endif
+
             </div>
+
         </div>
 
     </div>
@@ -102,6 +112,8 @@
     </div>
 
 </div>
+
+@include('Modules.organizacion.components.modal-eliminar')
 
 @endif
 
