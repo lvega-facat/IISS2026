@@ -2,83 +2,218 @@
 
 namespace App\Modules\Usuarios\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Usuarios;
-use App\Models\Empleados;
-use App\Models\Roles;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use App\Modules\Usuarios\Actions\CrearUsuarioAction;
 use App\Modules\Usuarios\Actions\ActualizarUsuarioAction;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Modules\Usuarios\Actions\CambiarPasswordUsuarioAction;
+use App\Modules\Usuarios\Actions\SoftELiminarUsuarioAction;
+use App\Modules\Usuarios\Actions\ActivarUsuario;
 
-class UsuariosController
+class UsuariosController extends Controller
 {
-    public function index(): View
+    public function __construct(
+        protected CrearUsuarioAction $crearUsuarioAction,
+        protected ActualizarUsuarioAction $actualizarUsuarioAction,
+        protected CambiarPasswordUsuarioAction $cambiarPasswordUsuarioAction,
+        protected SoftELiminarUsuarioAction $softEliminarUsuarioAction,
+        protected ActivarUsuario $activarUsuarioAction,
+    ) {}
+
+    /**
+     * Listado
+     */
+    public function index()
     {
-        $usuarios = Usuarios::with(['empleados', 'roles'])->latest()->paginate(10);
-        return view('usuarios.index', compact('usuarios'));
+        return view('Modules.Usuarios.index');
     }
 
-    public function create(): View
+    /**
+     * Formulario alta
+     */
+    public function create()
     {
-        $empleados = Empleados::whereNotIn('id', Usuarios::pluck('id_empleado'))->get();
-        $roles = Roles::where('estado', true)->get();
-        return view('usuarios.create', compact('empleados', 'roles'));
+        return view('Modules.Usuarios.form');
     }
 
-    public function store(
-        Request $request,
-        CrearUsuarioAction $action
-    ): RedirectResponse {
-        $validated = $request->validate([
-            'id_empleado' => ['required', 'integer', 'exists:empleados,id'],
-            'id_rol' => ['required', 'integer', 'exists:roles,id'],
-            'email' => ['required', 'email', 'unique:usuarios,email'],
-            'password_hash' => ['required', 'string', 'min:8'],
-        ]);
-
-        $result = $action->handle($validated);
-
-        return redirect()->route('usuarios.index')
-            ->with('success', 'Usuario creado correctamente.');
-    }
-
-    public function show(Usuarios $usuario): View
+    /**
+     * Formulario edición
+     */
+    public function edit(int $id)
     {
-        $usuario->load(['empleados', 'roles']);
-        return view('usuarios.show', compact('usuario'));
+        $usuario = Usuarios::findOrFail($id);
+
+        return view('Modules.Usuarios.form', compact('usuario'));
     }
 
-    public function edit(Usuarios $usuario): View
+    /**
+     * Crear usuario
+     */
+    public function store(Request $request)
     {
-        $empleados = Empleados::whereNotIn('id', Usuarios::where('id', '!=', $usuario->id)
-            ->pluck('id_empleado'))->get();
-        $roles = Roles::where('estado', true)->get();
-        $usuario->load(['empleados', 'roles']);
-        return view('usuarios.edit', compact('usuario', 'empleados', 'roles'));
+        try {
+
+            $this->crearUsuarioAction->execute(
+                $request->all()
+            );
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', 'Usuario creado correctamente');
+        } catch (ValidationException $e) {
+
+            return back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (\Throwable $e) {
+
+            return back()
+                ->with('error', $e->getMessage())
+                ->withInput();
+        }
     }
 
-    public function update(
-        Request $request,
-        Usuarios $usuario,
-        ActualizarUsuarioAction $action
-    ): RedirectResponse {
-        $validated = $request->validate([
-            'id_rol' => ['required', 'integer', 'exists:roles,id'],
-            'estado' => ['boolean'],
-            'password_hash' => ['nullable', 'string', 'min:8'],
-        ]);
-
-        $action->handle($usuario, $validated);
-
-        return redirect()->route('usuarios.index')
-            ->with('success', 'Usuario actualizado correctamente.');
-    }
-
-    public function destroy(Usuarios $usuario): RedirectResponse
+    /**
+     * Actualizar usuario
+     */
+    public function update(Request $request, int $id)
     {
-        $usuario->delete();
-        return redirect()->route('usuarios.index')
-            ->with('success', 'Usuario eliminado correctamente.');
+        try {
+
+            $usuario = Usuarios::findOrFail($id);
+
+            $this->actualizarUsuarioAction->execute(
+                $usuario,
+                $request->all()
+            );
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', 'Usuario actualizado correctamente');
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'Usuario no encontrado');
+        } catch (ValidationException $e) {
+
+            return back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (\Throwable $e) {
+
+            return back()
+                ->with('error', $e->getMessage())
+                ->withInput();
+        }
+    }
+
+    /**
+     * Baja lógica
+     */
+    public function destroy(int $id)
+    {
+        try {
+
+            $usuario = Usuarios::findOrFail($id);
+
+            $this->softEliminarUsuarioAction->execute(
+                $usuario
+            );
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', 'Usuario desactivado correctamente');
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'Usuario no encontrado');
+        } catch (\Throwable $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Activar usuario
+     */
+    public function activar(int $id)
+    {
+        try {
+
+            $this->activarUsuarioAction->execute($id);
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('success', 'Usuario activado correctamente');
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'Usuario no encontrado');
+        } catch (\Throwable $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Pantalla cambio password
+     */
+    public function editPassword(int $id)
+    {
+        $usuario = Usuarios::findOrFail($id);
+
+        return view(
+            'Modules.Usuarios.password',
+            compact('usuario')
+        );
+    }
+
+    /**
+     * Guardar password
+     */
+    public function updatePassword(Request $request, int $id)
+    {
+        try {
+
+            $usuario = Usuarios::findOrFail($id);
+
+            $this->cambiarPasswordUsuarioAction->execute(
+                $usuario,
+                $request->password,
+                $request->password_confirmation
+            );
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with(
+                    'success',
+                    'Contraseña actualizada correctamente'
+                );
+        } catch (ValidationException $e) {
+
+            return back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()
+                ->route('usuarios.index')
+                ->with('error', 'Usuario no encontrado');
+        } catch (\Throwable $e) {
+
+            return back()
+                ->with('error', $e->getMessage());
+        }
     }
 }
