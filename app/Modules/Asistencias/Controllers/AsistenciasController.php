@@ -34,4 +34,5 @@ class AsistenciasController extends Controller
     {
         // Lógica para eliminar
     }
+    
 }

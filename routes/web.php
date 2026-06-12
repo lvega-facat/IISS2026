@@ -4,30 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Modules\Autenticacion\Controllers\LoginController;
 use App\Modules\Departamentos\Controllers\DepartamentosController;
 
-/*
-|--------------------------------------------------------------------------
-| RUTA PRINCIPAL
-|--------------------------------------------------------------------------
-*/
-
 Route::get('/', function () {
     return view('welcome');
-})->middleware('permisos:dashboard.ver');
+})->middleware('auth');
 
-/*
-|--------------------------------------------------------------------------
-| AUTENTICACIÓN
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/login', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-
-/*
-|--------------------------------------------------------------------------
-| DEPARTAMENTOS
-|--------------------------------------------------------------------------
-*/
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'show'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+});
 
 Route::prefix('departamentos')->group(function () {
 
