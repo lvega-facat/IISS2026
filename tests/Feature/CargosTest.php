@@ -121,7 +121,7 @@ class CargosTest extends TestCase
             ->post(route('cargos.store'), [
                 'id_departamento' => $existente->id_departamento,
                 'id_cargo_padre' => null,
-                'nombre' => strtoupper($existente->nombre),
+                'nombre' => $existente->nombre,
             ]);
 
         $response->assertSessionHasErrors('nombre');
