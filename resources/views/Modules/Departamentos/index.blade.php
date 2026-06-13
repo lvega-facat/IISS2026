@@ -145,7 +145,6 @@
 
         {{-- PAGINACIÓN (OBLIGATORIA) --}}
         <div class="mt-4 p-3">
-            {{ $departamentos->links() }}
         </div>
 
     </div>

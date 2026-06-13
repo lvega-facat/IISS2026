@@ -1,3 +1,4 @@
+@extends('layouts.app')
 {{-- MENSAJES B2F --}}
 @if(session('error'))
     <div class="alert alert-danger">
@@ -69,17 +70,9 @@
                 class="form-select-custom">
 
             <option value="">Ninguno</option>
+            <option value="1">dato de prueba 1</option>
+            <option value="2">dato de prueba 2</option>
 
-            @foreach($departamentosPadre as $padre)
-
-                <option value="{{ $padre->id }}"
-                    @selected(old('departamento_padre_id', $departamento->departamento_padre_id ?? '') == $padre->id)>
-
-                    {{ $padre->nombre }}
-
-                </option>
-
-            @endforeach
 
         </select>
     </div>
