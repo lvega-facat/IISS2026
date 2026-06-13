@@ -38,9 +38,12 @@ Route::prefix('contratos/profesiones')
 
 
 Route::prefix('contratos/tipos-contrato')->middleware(['auth'])->group(function () {
-    Route::get('/', [TiposContratoController::class, 'index']);
-    Route::get('/create', [TiposContratoController::class, 'create']);
-    Route::get('/{id}/edit', [TiposContratoController::class, 'edit']);
+    Route::get('/', [TiposContratoController::class, 'index'])->name('tipos-contrato.index');
+    Route::get('/create', [TiposContratoController::class, 'create'])->name('tipos-contrato.create');
+    Route::get('/{id}/edit', [TiposContratoController::class, 'edit'])->name('tipos-contrato.edit');
+    Route::post('/', [TiposContratoController::class,'store'])->name('tipos-contrato.store');
+    Route::put('/{id}', [TiposContratoController::class,'update'])->name('tipos-contrato.update');
+    Route::delete('/{id}', [TiposContratoController::class,'destroy'])->name('tipos-contrato.destroy');
 });
 
 Route::prefix('contratos/horarios')->middleware(['auth'])->group(function () {
