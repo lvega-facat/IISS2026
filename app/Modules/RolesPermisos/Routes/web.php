@@ -4,6 +4,11 @@ use App\Modules\RolesPermisos\Enums\Permisos;
 use App\Modules\RolesPermisos\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
+use App\Modules\Autenticacion\Controllers\LoginController;
+
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+
 Route::prefix('roles')->middleware(['auth'])->group(function () {
     // Usando las constantes del enum
     Route::get('/', [RoleController::class, 'index'])
