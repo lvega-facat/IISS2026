@@ -39,19 +39,6 @@ class Asistencias extends Model
 {
 	protected $table = 'asistencias';
 
-	protected $casts = [
-		'id_empleado' => 'int',
-		'id_contrato' => 'int',
-		'id_estado_asistencia' => 'int',
-		'fecha_entrada' => 'datetime',
-		'hora_entrada' => 'time without time zone',
-		'hora_salida' => 'time without time zone',
-		'minutos_tardanza' => 'int',
-		'horas_trabajadas' => 'float',
-		'horas_extra' => 'float',
-		'horas_ausentes' => 'float',
-		'tiene_justificativo' => 'bool'
-	];
 
 	protected $fillable = [
 		'id_empleado',
