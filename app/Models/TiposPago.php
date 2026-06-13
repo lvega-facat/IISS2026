@@ -32,7 +32,6 @@ class TiposPago extends Model
 
 	protected $casts = [
 		'estado' => 'bool',
-		'unidad_calculo' => 'USER-DEFINED'
 	];
 
 	protected $fillable = [
