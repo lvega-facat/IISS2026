@@ -1,67 +1,72 @@
 <form>
 
-    {{-- NOMBRE --}}
-    <div class="mb-3">
-        <label class="form-label-custom">Nombre *</label>
+    {{-- CARD CONTENEDOR (solo visual con Bootstrap) --}}
+    <div class="card p-4 shadow-sm border-0">
 
-        <input type="text"
-               class="form-control-custom"
-               placeholder="Ingrese el nombre del departamento"
-               required>
-    </div>
+        {{-- NOMBRE --}}
+        <div class="mb-3">
+            <label class="form-label-custom">Nombre</label>
 
-    {{-- CÓDIGO --}}
-    <div class="mb-3">
-        <label class="form-label-custom">Código *</label>
+            <input type="text"
+                   class="form-control-custom form-control"
+                   placeholder="Ingrese el nombre del departamento"
+                   required>
+        </div>
 
-        <input type="text"
-               class="form-control-custom"
-               placeholder="Ingrese el código"
-               required>
-    </div>
+        {{-- CÓDIGO --}}
+        <div class="mb-3">
+            <label class="form-label-custom">Código *</label>
 
-    {{-- DESCRIPCIÓN --}}
-    <div class="mb-3">
-        <label class="form-label-custom">Descripción</label>
+            <input type="text"
+                   class="form-control-custom form-control"
+                   placeholder="Ingrese el código"
+                   required>
+        </div>
 
-        <textarea class="form-control-custom"
-                  rows="4"
-                  placeholder="Ingrese una descripción"></textarea>
-    </div>
+        {{-- DESCRIPCIÓN --}}
+        <div class="mb-3">
+            <label class="form-label-custom">Descripción</label>
 
-    {{-- FUNCIÓN PRINCIPAL --}}
-    <div class="mb-3">
-        <label class="form-label-custom">Función Principal *</label>
+            <textarea class="form-control-custom form-control"
+                      rows="4"
+                      placeholder="Ingrese una descripción"></textarea>
+        </div>
 
-        <input type="text"
-               class="form-control-custom"
-               placeholder="Ingrese la función principal"
-               required>
-    </div>
+        {{-- FUNCIÓN PRINCIPAL --}}
+        <div class="mb-3">
+            <label class="form-label-custom">Función Principal *</label>
 
-    {{-- DEPARTAMENTO PADRE --}}
-    <div class="mb-3">
-        <label class="form-label-custom">Departamento Padre</label>
+            <input type="text"
+                   class="form-control-custom form-control"
+                   placeholder="Ingrese la función principal"
+                   required>
+        </div>
 
-        <select class="form-select-custom">
+        {{-- DEPARTAMENTO PADRE --}}
+        <div class="mb-3">
+            <label class="form-label-custom">Departamento Padre</label>
 
-            <option value="">Ninguno</option>
-            <option value="1">dato de prueba 1</option>
-            <option value="2">dato de prueba 2</option>
+            <select class="form-select form-select-custom">
 
-        </select>
-    </div>
+                <option value="">Ninguno</option>
+                <option value="1">dato de prueba 1</option>
+                <option value="2">dato de prueba 2</option>
 
-    {{-- BOTONES --}}
-    <div class="modal-actions-container d-flex justify-content-end gap-2">
+            </select>
+        </div>
 
-        <button type="button" class="btn-cancel-custom">
-            Cancelar
-        </button>
+        {{-- BOTONES --}}
+        <div class="d-flex justify-content-end gap-2 mt-4">
 
-        <button type="submit" class="btn-create-custom">
-            Guardar
-        </button>
+            <button type="button" class="btn btn-light">
+                Cancelar
+            </button>
+
+            <button type="submit" class="btn btn-primary">
+                Guardar
+            </button>
+
+        </div>
 
     </div>
 
