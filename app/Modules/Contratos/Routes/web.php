@@ -41,12 +41,12 @@ Route::prefix('contratos/profesiones')
 
 
 Route::prefix('contratos/tipos-contrato')->middleware(['auth'])->group(function () {
-    Route::get('/', [TiposContratoController::class, 'index'])->name('tipos-contrato.index');
-    Route::get('/create', [TiposContratoController::class, 'create'])->name('tipos-contrato.create');
-    Route::get('/{id}/edit', [TiposContratoController::class, 'edit'])->name('tipos-contrato.edit');
-    Route::post('/', [TiposContratoController::class,'store'])->name('tipos-contrato.store');
-    Route::put('/{id}', [TiposContratoController::class,'update'])->name('tipos-contrato.update');
-    Route::delete('/{id}', [TiposContratoController::class,'destroy'])->name('tipos-contrato.destroy');
+    Route::get('/', [TiposContratoController::class, 'index'])->name('tipos-contrato.index')->middleware('permisos:' . Permisos::CONTRATOS_VER);
+    Route::get('/create', [TiposContratoController::class, 'create'])->name('tipos-contrato.create')->middleware('permisos:' . Permisos::CONTRATOS_CREAR);
+    Route::get('/{id}/edit', [TiposContratoController::class, 'edit'])->name('tipos-contrato.edit')->middleware('permisos:' . Permisos::CONTRATOS_EDITAR);
+    Route::post('/', [TiposContratoController::class,'store'])->name('tipos-contrato.store')->middleware('permisos:' . Permisos::CONTRATOS_CREAR);
+    Route::put('/{id}', [TiposContratoController::class,'update'])->name('tipos-contrato.update')->middleware('permisos:' . Permisos::CONTRATOS_EDITAR);
+    Route::delete('/{id}', [TiposContratoController::class,'destroy'])->name('tipos-contrato.destroy')->middleware('permisos:' . Permisos::CONTRATOS_ELIMINAR);
 });
 
 Route::prefix('contratos/horarios')->middleware(['auth'])->group(function () {
