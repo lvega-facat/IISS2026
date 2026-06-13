@@ -9,9 +9,12 @@ use App\Modules\RolesPermisos\Enums\Permisos;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('contratos')->middleware(['auth'])->group(function () {
-    Route::get('/', [ContratosController::class, 'index']);
-    Route::get('/create', [ContratosController::class, 'create']);
-    Route::get('/{id}/edit', [ContratosController::class, 'edit']);
+    Route::get('/', [ContratosController::class, 'index'])->name('contratos.index')->middleware('permisos:' . Permisos::CONTRATOS_VER);
+    Route::get('/create', [ContratosController::class, 'create'])->middleware('permisos:' . Permisos::CONTRATOS_CREAR);
+    Route::get('/{id}/edit', [ContratosController::class, 'edit'])->middleware('permisos:' . Permisos::CONTRATOS_EDITAR);
+    Route::post('/', [ContratosController::class, 'store'])->middleware('permisos:' . Permisos::CONTRATOS_CREAR);
+    Route::put('/{id}', [ContratosController::class, 'update'])->middleware('permisos:' . Permisos::CONTRATOS_EDITAR);
+    Route::delete('/{id}', [ContratosController::class, 'destroy'])->middleware('permisos:' . Permisos::CONTRATOS_ELIMINAR);
 });
 
 //rutas para profesiones
