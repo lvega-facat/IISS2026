@@ -26,7 +26,7 @@ class ContratosController extends Controller
     {
         return view('Modules.Contratos.form');
     }
-
+//crear
     public function store(
         Request $request,
         CrearContratoAction $action
