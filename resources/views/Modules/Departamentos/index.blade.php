@@ -9,23 +9,14 @@
 
 <div class="cargo-page">
 
-    {{-- MENSAJES ERROR B2F --}}
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
     {{-- BOTÓN NUEVO --}}
     <div class="card top-card mb-4">
         <div class="card-body">
 
-            @can(\App\Modules\RolesPermisos\Enums\Permisos::DEPARTAMENTOS_CREAR) 
             <button class="btn btn-primary btn-new">
                 <i class="fa fa-plus me-2"></i>
                 Nuevo Departamento
             </button>
-            @endcan
 
         </div>
     </div>
@@ -36,19 +27,23 @@
         <div class="table-toolbar">
 
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar por nombre">
+                <input type="text"
+                       class="search-input"
+                       placeholder="Buscar por nombre">
             </div>
 
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Buscar por código">
+                <input type="text"
+                       class="search-input"
+                       placeholder="Buscar por código">
             </div>
 
             <div class="filter-group">
 
                 <select class="filter-select">
-                    <option value="">Todos</option>
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
+                    <option>Todos</option>
+                    <option>Activo</option>
+                    <option>Inactivo</option>
                 </select>
 
                 <button class="btn-search">
@@ -70,39 +65,33 @@
             <div class="text-end">Acciones</div>
         </div>
 
-        {{-- FILAS --}}
-        @forelse($departamentos as $departamento)
-
+        {{-- FILA 1 --}}
         <div class="cargo-row">
 
             <div class="cargo-title">
-                {{ $departamento->nombre }}
+                Administración
             </div>
 
             <div>
-                {{ $departamento->codigo }}
+                ADM001
             </div>
 
             <div>
-                {{ $departamento->funcion_principal }}
+                Gestión administrativa
             </div>
 
             <div>
-                {{ $departamento->departamento_padre ?? 'Ninguno' }}
+                Ninguno
             </div>
 
             <div class="text-center">
-                {{ $departamento->cantidad_empleados }}
+                15
             </div>
 
             <div class="text-center">
-
-                @if($departamento->estado)
-                    <span class="status-badge active">Activo</span>
-                @else
-                    <span class="status-badge inactive">Inactivo</span>
-                @endif
-
+                <span class="status-badge active">
+                    Activo
+                </span>
             </div>
 
             <div class="text-end">
@@ -113,21 +102,17 @@
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-
-                        @can(\App\Modules\RolesPermisos\Enums\Permisos::DEPARTAMENTOS_EDITAR)
-                        <li>
-                            <a class="dropdown-item">Editar</a>
-                        </li>
-                        @endcan
-
-                        @can(\App\Modules\RolesPermisos\Enums\Permisos::DEPARTAMENTOS_ELIMINAR)
                         <li>
                             <a class="dropdown-item">
-                                {{ $departamento->estado ? 'Desactivar' : 'Activar' }}
+                                Editar
                             </a>
                         </li>
-                        @endcan
 
+                        <li>
+                            <a class="dropdown-item">
+                                Desactivar
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -135,17 +120,133 @@
 
         </div>
 
-        @empty
+        {{-- FILA 2 --}}
+        <div class="cargo-row">
 
-        <div class="p-4 text-center text-muted">
-            No hay departamentos registrados.
+            <div class="cargo-title">
+                Recursos Humanos
+            </div>
+
+            <div>
+                RRHH001
+            </div>
+
+            <div>
+                Gestión del personal
+            </div>
+
+            <div>
+                Administración
+            </div>
+
+            <div class="text-center">
+                8
+            </div>
+
+            <div class="text-center">
+                <span class="status-badge active">
+                    Activo
+                </span>
+            </div>
+
+            <div class="text-end">
+
+                <div class="dropdown">
+                    <button class="action-btn" data-bs-toggle="dropdown">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item">
+                                Editar
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item">
+                                Desactivar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
         </div>
 
-        @endforelse
+        {{-- FILA 3 --}}
+        <div class="cargo-row">
 
-        {{-- PAGINACIÓN (OBLIGATORIA) --}}
-        <div class="mt-4 p-3">
-            {{ $departamentos->links() }}
+            <div class="cargo-title">
+                Tecnología
+            </div>
+
+            <div>
+                TEC001
+            </div>
+
+            <div>
+                Desarrollo y soporte tecnológico
+            </div>
+
+            <div>
+                Ninguno
+            </div>
+
+            <div class="text-center">
+                20
+            </div>
+
+            <div class="text-center">
+                <span class="status-badge inactive">
+                    Inactivo
+                </span>
+            </div>
+
+            <div class="text-end">
+
+                <div class="dropdown">
+                    <button class="action-btn" data-bs-toggle="dropdown">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item">
+                                Editar
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item">
+                                Activar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        {{-- PAGINACIÓN MOCKUP --}}
+        <div class="custom-pagination">
+
+            <button class="page-nav">
+                Atrás
+            </button>
+
+            <div class="page-numbers">
+                <button class="page-item active">1</button>
+                <button class="page-item">2</button>
+                <button class="page-item">3</button>
+            </div>
+
+            <button class="page-nav">
+                Siguiente
+            </button>
+
         </div>
 
     </div>

@@ -1,85 +1,83 @@
-{{-- MENSAJES B2F --}}
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-@if($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-<form method="POST"
-      action="{{ $action ?? '#' }}">
-
-    @csrf
+<form>
 
     {{-- NOMBRE --}}
     <div class="mb-3">
-        <label class="form-label-custom">Nombre *</label>
+        <label class="form-label-custom">
+            Nombre *
+        </label>
 
-        <input type="text"
-               name="nombre"
-               class="form-control-custom"
-               value="{{ old('nombre', $departamento->nombre ?? '') }}"
-               required>
+        <input
+            type="text"
+            class="form-control-custom"
+            placeholder="Ingrese el nombre del departamento"
+            required>
     </div>
 
-    {{-- CODIGO --}}
+    {{-- CÓDIGO --}}
     <div class="mb-3">
-        <label class="form-label-custom">Código *</label>
+        <label class="form-label-custom">
+            Código *
+        </label>
 
-        <input type="text"
-               name="codigo"
-               class="form-control-custom"
-               value="{{ old('codigo', $departamento->codigo ?? '') }}"
-               required>
+        <input
+            type="text"
+            class="form-control-custom"
+            placeholder="Ingrese el código"
+            required>
     </div>
 
-    {{-- DESCRIPCION --}}
+    {{-- DESCRIPCIÓN --}}
     <div class="mb-3">
-        <label class="form-label-custom">Descripción</label>
+        <label class="form-label-custom">
+            Descripción
+        </label>
 
-        <textarea name="descripcion"
-                  class="form-control-custom">{{ old('descripcion', $departamento->descripcion ?? '') }}</textarea>
+        <textarea
+            class="form-control-custom"
+            rows="4"
+            placeholder="Ingrese una descripción"></textarea>
     </div>
 
-    {{-- FUNCION PRINCIPAL --}}
+    {{-- FUNCIÓN PRINCIPAL --}}
     <div class="mb-3">
-        <label class="form-label-custom">Función Principal *</label>
+        <label class="form-label-custom">
+            Función Principal *
+        </label>
 
-        <input type="text"
-               name="funcion_principal"
-               class="form-control-custom"
-               value="{{ old('funcion_principal', $departamento->funcion_principal ?? '') }}"
-               required>
+        <input
+            type="text"
+            class="form-control-custom"
+            placeholder="Ingrese la función principal"
+            required>
     </div>
 
     {{-- DEPARTAMENTO PADRE --}}
     <div class="mb-3">
-        <label class="form-label-custom">Departamento Padre</label>
+        <label class="form-label-custom">
+            Departamento Padre
+        </label>
 
-        <select name="departamento_padre_id"
-                class="form-select-custom">
+        <select class="form-select-custom">
 
-            <option value="">Ninguno</option>
+            <option selected>
+                Ninguno
+            </option>
 
-            @foreach($departamentosPadre as $padre)
+            <option>
+                Administración
+            </option>
 
-                <option value="{{ $padre->id }}"
-                    @selected(old('departamento_padre_id', $departamento->departamento_padre_id ?? '') == $padre->id)>
+            <option>
+                Tecnología
+            </option>
 
-                    {{ $padre->nombre }}
+            <option>
+                Recursos Humanos
+            </option>
 
-                </option>
-
-            @endforeach
+            <option>
+                Finanzas
+            </option>
 
         </select>
     </div>
@@ -87,13 +85,15 @@
     {{-- BOTONES --}}
     <div class="modal-actions-container d-flex justify-content-end gap-2">
 
-        <button type="button"
-                class="btn-cancel-custom">
+        <button
+            type="button"
+            class="btn-cancel-custom">
             Cancelar
         </button>
 
-        <button type="submit"
-                class="btn-create-custom">
+        <button
+            type="submit"
+            class="btn-create-custom">
             Guardar
         </button>
 

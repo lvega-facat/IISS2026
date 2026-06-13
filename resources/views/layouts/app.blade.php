@@ -59,7 +59,11 @@
                     data-bs-parent="#sidebarMenu">
 
                     <li><a href="#organizacion">Organización</a></li>
-                    <li><a href="#departamentos">Departamentos</a></li>
+                    <li>
+                        <a href="{{ route('departamentos.index') }}">
+                            Departamentos
+                        </a>
+                    </li>
                     <li><a href="#cargos">Cargos</a></li>
                 </ul>
             </li>
