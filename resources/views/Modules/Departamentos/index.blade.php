@@ -65,177 +65,79 @@
             <div class="text-end">Acciones</div>
         </div>
 
-        {{-- FILA 1 --}}
+        {{-- FILAS MOCK --}}
         <div class="cargo-row">
-
-            <div class="cargo-title">
-                Administración
-            </div>
-
-            <div>
-                ADM001
-            </div>
-
-            <div>
-                Gestión administrativa
-            </div>
-
-            <div>
-                Ninguno
-            </div>
-
+            <div class="cargo-title">Administración</div>
+            <div>ADM001</div>
+            <div>Gestión administrativa</div>
+            <div>Ninguno</div>
+            <div class="text-center">15</div>
             <div class="text-center">
-                15
+                <span class="status-badge active">Activo</span>
             </div>
-
-            <div class="text-center">
-                <span class="status-badge active">
-                    Activo
-                </span>
-            </div>
-
             <div class="text-end">
-
                 <div class="dropdown">
                     <button class="action-btn" data-bs-toggle="dropdown">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item">
-                                Editar
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item">
-                                Desactivar
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item">Editar</a></li>
+                        <li><a class="dropdown-item">Desactivar</a></li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
 
-        {{-- FILA 2 --}}
         <div class="cargo-row">
-
-            <div class="cargo-title">
-                Recursos Humanos
-            </div>
-
-            <div>
-                RRHH001
-            </div>
-
-            <div>
-                Gestión del personal
-            </div>
-
-            <div>
-                Administración
-            </div>
-
+            <div class="cargo-title">Recursos Humanos</div>
+            <div>RRHH001</div>
+            <div>Gestión del personal</div>
+            <div>Administración</div>
+            <div class="text-center">8</div>
             <div class="text-center">
-                8
+                <span class="status-badge active">Activo</span>
             </div>
-
-            <div class="text-center">
-                <span class="status-badge active">
-                    Activo
-                </span>
-            </div>
-
             <div class="text-end">
-
                 <div class="dropdown">
                     <button class="action-btn" data-bs-toggle="dropdown">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item">
-                                Editar
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item">
-                                Desactivar
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item">Editar</a></li>
+                        <li><a class="dropdown-item">Desactivar</a></li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
 
-        {{-- FILA 3 --}}
         <div class="cargo-row">
-
-            <div class="cargo-title">
-                Tecnología
-            </div>
-
-            <div>
-                TEC001
-            </div>
-
-            <div>
-                Desarrollo y soporte tecnológico
-            </div>
-
-            <div>
-                Ninguno
-            </div>
-
+            <div class="cargo-title">Tecnología</div>
+            <div>TEC001</div>
+            <div>Desarrollo y soporte tecnológico</div>
+            <div>Ninguno</div>
+            <div class="text-center">20</div>
             <div class="text-center">
-                20
+                <span class="status-badge inactive">Inactivo</span>
             </div>
-
-            <div class="text-center">
-                <span class="status-badge inactive">
-                    Inactivo
-                </span>
-            </div>
-
             <div class="text-end">
-
                 <div class="dropdown">
                     <button class="action-btn" data-bs-toggle="dropdown">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item">
-                                Editar
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item">
-                                Activar
-                            </a>
-                        </li>
+                        <li><a class="dropdown-item">Editar</a></li>
+                        <li><a class="dropdown-item">Activar</a></li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
 
         {{-- PAGINACIÓN MOCKUP --}}
         <div class="custom-pagination">
-
-            <button class="page-nav">
-                Atrás
-            </button>
+            <button class="page-nav">Atrás</button>
 
             <div class="page-numbers">
                 <button class="page-item active">1</button>
@@ -243,10 +145,7 @@
                 <button class="page-item">3</button>
             </div>
 
-            <button class="page-nav">
-                Siguiente
-            </button>
-
+            <button class="page-nav">Siguiente</button>
         </div>
 
     </div>
