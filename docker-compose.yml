@@ -14,8 +14,6 @@ services:
 
     volumes:
       - ./:/var/www/html
-      - vendor_data:/var/www/html/vendor
-      - storage_data:/var/www/html/storage
 
     depends_on:
       - postgres
@@ -23,6 +21,7 @@ services:
 
     networks:
       - laravel
+
 
   postgres:
     image: postgres:16
@@ -37,13 +36,14 @@ services:
       POSTGRES_PASSWORD: secret
 
     ports:
-      - "5433:5432"
+      - "5432:5432"
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
     networks:
       - laravel
+
 
   redis:
     image: redis:7
@@ -58,10 +58,9 @@ services:
     networks:
       - laravel
 
+
 volumes:
   postgres_data:
-  vendor_data:
-  storage_data:
 
 networks:
   laravel:
