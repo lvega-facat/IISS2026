@@ -4,7 +4,7 @@ use App\Modules\TiposPagos\Controllers\TiposPagoController;
 use Illuminate\Support\Facades\Route;
 use App\Modules\RolesPermisos\Enums\Permisos;
 
-Route::prefix('tipos-pago')
+Route::prefix('contratos/tipos-pago')
     ->name('tipos-pago.')
     ->controller(TiposPagoController::class)
     ->middleware(['auth'])
