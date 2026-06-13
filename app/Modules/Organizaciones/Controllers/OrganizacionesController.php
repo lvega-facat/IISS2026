@@ -11,7 +11,7 @@ use App\Modules\Organizaciones\Actions\CrearOrganizacionAction;
 use App\Modules\Organizaciones\Actions\ActualizarOrganizacionAction;
 use App\Modules\Organizaciones\Actions\EliminarOrganizacionAction;
 
-class OrganizacionController extends Controller
+class OrganizacionesController extends Controller
 {
     public function show()
     {
