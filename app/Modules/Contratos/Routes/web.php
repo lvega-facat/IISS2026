@@ -1,9 +1,9 @@
 <?php
 
 use App\Modules\Contratos\Controllers\ContratosController;
-USE App\Modules\Contratos\Profesiones\Controllers\ProfesionesController;
-USE App\Modules\Contratos\TiposContrato\Controllers\TiposContratoController;
-USE App\Modules\Contratos\Horarios\Controllers\HorariosController;
+use App\Modules\Contratos\Profesiones\Controllers\ProfesionesController;
+use App\Modules\Contratos\TiposContrato\Controllers\TiposContratoController;
+use App\Modules\Contratos\HorariosTrabajo\Controllers\HorariosTrabajoController;
 use App\Modules\Contratos\TiposFrecuencias\Controllers\TiposFrecuenciasController;
 use App\Modules\RolesPermisos\Enums\Permisos;
 use Illuminate\Support\Facades\Route;
@@ -47,9 +47,12 @@ Route::prefix('contratos/tipos-contrato')->middleware(['auth'])->group(function 
 });
 
 Route::prefix('contratos/horarios')->middleware(['auth'])->group(function () {
-    Route::get('/', [HorariosController::class, 'index']);
-    Route::get('/create', [HorariosController::class, 'create']);
-    Route::get('/{id}/edit', [HorariosController::class, 'edit']);
+    Route::get('/', [HorariosTrabajoController::class, 'index'])->name('horarios.index')->middleware('permisos:' . Permisos::CONTRATOS_VER)->name('horarios.index');
+    Route::get('/create', [HorariosTrabajoController::class, 'create'])->middleware('permisos:' . Permisos::CONTRATOS_CREAR)->name('horarios.create');
+    Route::get('/{id}/edit', [HorariosTrabajoController::class, 'edit'])->middleware('permisos:' . Permisos::CONTRATOS_EDITAR)->name('horarios.edit');
+    Route::post('/', [HorariosTrabajoController::class, 'store'])->middleware('permisos:' . Permisos::CONTRATOS_CREAR)->name('horarios.store');
+    Route::put('/{id}', [HorariosTrabajoController::class, 'update'])->middleware('permisos:' . Permisos::CONTRATOS_EDITAR)->name('horarios.update');
+    Route::delete('/{id}', [HorariosTrabajoController::class, 'destroy'])->middleware('permisos:' . Permisos::CONTRATOS_ELIMINAR)->name('horarios.destroy');
 });
 
 Route::prefix('contratos/tipos-frecuencias')->middleware(['auth'])->group(function () {
