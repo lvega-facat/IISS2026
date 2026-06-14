@@ -14,6 +14,8 @@ services:
 
     volumes:
       - ./:/var/www/html
+      - vendor_data:/var/www/html/vendor
+      - storage_data:/var/www/html/storage
 
     depends_on:
       - postgres
@@ -21,7 +23,6 @@ services:
 
     networks:
       - laravel
-
 
   postgres:
     image: postgres:16
@@ -44,7 +45,6 @@ services:
     networks:
       - laravel
 
-
   redis:
     image: redis:7
 
@@ -58,9 +58,10 @@ services:
     networks:
       - laravel
 
-
 volumes:
   postgres_data:
+  vendor_data:
+  storage_data:
 
 networks:
   laravel:
