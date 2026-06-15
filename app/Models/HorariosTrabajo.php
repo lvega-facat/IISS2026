@@ -34,15 +34,6 @@ class HorariosTrabajo extends Model
 {
 	protected $table = 'horarios_trabajo';
 
-	protected $casts = [
-		'hora_entrada' => 'time without time zone',
-		'hora_salida' => 'time without time zone',
-		'horas_diarias' => 'float',
-		'horas_semanales' => 'float',
-		'tolerancia_minutos' => 'int',
-		'estado' => 'bool'
-	];
-
 	protected $fillable = [
 		'nombre',
 		'descripcion',
