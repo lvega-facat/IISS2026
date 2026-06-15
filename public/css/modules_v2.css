@@ -329,24 +329,55 @@
     padding: 0 10px;
 }
 
+/* ==========================================================================
+   BOTONERA DE FORMULARIOS (MODIFICADO SIN AFECTAR LOS MODALES)
+   ========================================================================== */
+
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px; 
+}
+
 .btn-cancel-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important; 
     background-color: #bd0909 !important;
     color: #fff !important;
     font-weight: 600;
     font-size: .9rem;
-    padding: 12px 40px;
+    height: 46px;
+    width: 160px;
     border-radius: 10px;
     border: none;
+    transition: background-color .2s ease;
+}
+
+.btn-cancel-custom:hover {
+    text-decoration: none !important;
+    background-color: #990707 !important;
 }
 
 .btn-create-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #1e3d73 !important;
     color: #fff !important;
     font-weight: 600;
     font-size: .9rem;
-    padding: 12px 45px;
+    height: 46px; 
+    width: 160px;
     border-radius: 10px;
     border: none;
+    transition: background-color .2s ease;
+}
+
+.btn-create-custom:hover {
+    background-color: #162e58 !important;
 }
 
 /* ==========================================================================
