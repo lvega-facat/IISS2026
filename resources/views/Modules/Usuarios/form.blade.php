@@ -380,6 +380,7 @@
                         <label for="empleado_id" class="form-label-custom">
                             Empleado Vinculado <span class="text-danger">*</span>
                         </label>
+                        {{-- Se mantiene la clase 'form-control-custom' y se agrega el atributo data-searchable para inicializar un Select Buscable si usas alguna librería JS externa --}}
                         <select
                             id="empleado_id"
                             name="empleado_id"
