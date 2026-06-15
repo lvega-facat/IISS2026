@@ -546,7 +546,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // -------------------- 15. CATÁLOGO ESTADOS ASISTENCIA --------------------
-        $estadosAsistencia = ['Presente', 'Ausente', 'Tardanza', 'Permiso', 'Vacaciones'];
+        $estadosAsistencia = ['Presente', 'Ausente', 'Tardanza', 'Permiso', 'Vacaciones','Justificado'];
         $estadoAsistenciaIds = [];
         foreach ($estadosAsistencia as $est) {
             $estadoAsistenciaIds[$est] = DB::table('cat_estados_asistencia')->insertGetId(['nombre' => $est]);
