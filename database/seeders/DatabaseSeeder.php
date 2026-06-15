@@ -2,69 +2,27 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
+        // User::factory(10)->create();
 
-        // Clear existing data (optional but ensures clean state)
-        $tables = [
-            'auditoria_log',
-            'cambios_permisos',
-            'justificativos',
-            'asistencias',
-            'planilla_detalles',
-            'planillas',
-            'contratos',
-            'sesiones',
-            'usuarios',
-            'empleados',
-            'cargos',
-            'departamento_dependiente',
-            'departamentos',
-            'tipos_contrato',
-            'horarios_trabajo',
-            'profesiones',
-            'rol_permiso',
-            'permisos',
-            'modulos',
-            'roles',
-            'tipos_pago',
-            'frecuencias_pago',
-            'cat_estados_asistencia',
-            'organizaciones',
-            'users'
-        ];
-        foreach ($tables as $table) {
-            DB::table($table)->truncate();
-        }
-
-
-        // -------------------- 1. ORGANIZACIÓN --------------------
-        $orgId = DB::table('organizaciones')->insertGetId([
-            'nombre' => 'Empresa Demo S.A.C.',
-            'ruc' => '20512345678',
-            'fecha_registro' => '2020-01-01',
-            'direccion' => 'Av. Principal 123, Lima, Perú',
-            'pais' => 'Perú',
-            'email' => 'info@empresademo.com',
-            'telefono' => '+51 1 987654321',
-            'sector' => 'Tecnología',
-            'logo_url' => 'https://example.com/logo.png',
-            'estado' => true,
-            'created_at' => now(),
-            'updated_at' => now(),
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
         ]);
+<<<<<<< HEAD
+=======
 
         // -------------------- 2. MÓDULOS --------------------
         $modulos = [
@@ -708,5 +666,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->command->info('Seeder ejecutado correctamente. Datos de prueba insertados.');
+>>>>>>> c1a239831a048ff324cab09bf1c6f2340376d105
     }
 }

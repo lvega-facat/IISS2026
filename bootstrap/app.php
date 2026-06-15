@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -10,20 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
             then: function () {
+            foreach (glob(base_path('app/Modules/*/Routes/web.php')) as $routeFile) {
+                Route::middleware('web')->group($routeFile);
+            }
 
-        if (app()->environment('local')) {
-            Route::middleware('web')
-                ->group(base_path('routes/dev.php'));
-            Route::middleware('web')
-                ->group(base_path('routes/devBack.php'));
-        }
-
-    },
+            if (app()->environment('local')) {
+                Route::middleware('web')
+                    ->group(base_path('routes/dev.php'));
+            }
+        },
     )
-    ->withMiddleware(function ($middleware) {
-        $middleware->alias([
-            'permisos' => \App\Modules\RolesPermisos\Middleware\CheckPermissions::class,
-        ]);
+    ->withMiddleware(function (Middleware $middleware): void {
+        //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

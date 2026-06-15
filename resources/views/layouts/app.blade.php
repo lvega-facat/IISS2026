@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +15,7 @@
 
     @stack('styles')
 </head>
-
 <body>
-
 <div class="wrapper">
 
     <!-- =========================================
@@ -85,28 +83,28 @@
             </li>
 
             <!-- Configuración de Contratos -->
-<li>
-    <a href="#configContratosSubmenu"
-       class="nav-link-custom dropdown-toggle"
-       data-bs-toggle="collapse"
-       aria-expanded="false">
+            <li>
+                <a href="#configContratosSubmenu"
+                   class="nav-link-custom dropdown-toggle"
+                   data-bs-toggle="collapse"
+                   aria-expanded="false">
 
-        <i class="fa fa-file-text me-2"></i>
-        Contratos
-    </a>
+                    <i class="fa fa-file-text me-2"></i>
+                    Contratos
+                </a>
 
-    <ul class="collapse list-unstyled submenu"
-        id="configContratosSubmenu"
-        data-bs-parent="#sidebarMenu">
+                <ul class="collapse list-unstyled submenu"
+                    id="configContratosSubmenu"
+                    data-bs-parent="#sidebarMenu">
 
-        <li><a href="#Profesiones">Profesiones</a></li>
-        <li><a href="#Horarios">Horarios</a></li>
-        <li><a href="#tiposdepago">Tipos de Pago</a></li>
-        <li><a href="#frecuencias">Frecuencias</a></li>
-        <li><a href="#tiposDeContrado">Tipos de Contrato</a></li>
+                    <li><a href="#Profesiones">Profesiones</a></li>
+                    <li><a href="#Horarios">Horarios</a></li>
+                    <li><a href="#tiposdepago">Tipos de Pago</a></li>
+                    <li><a href="#frecuencias">Frecuencias</a></li>
+                    <li><a href="#tiposDeContrado">Tipos de Contrato</a></li>
 
-    </ul>
-</li>
+                </ul>
+            </li>
 
             <!-- Control de Asistencia -->
             <li>
@@ -158,64 +156,19 @@
             </li>
 
         </ul>
-
     </nav>
 
-    <!-- =========================================
-         CONTENIDO
-    ========================================== -->
-    <div id="content-wrapper">
+    <main>
+        @yield('content')
+    </main>
 
-        <header class="top-navbar d-flex justify-content-between align-items-center px-4">
-
-            <div class="view-title-container">
-                <h2 class="mb-0 fw-bold" style="font-size:1.5rem;color:#333;">
-                    @yield('page-title', 'Dashboard')
-                </h2>
-
-                <small class="text-muted">
-                    @yield('page-subtitle', 'Gestión general del sistema')
-                </small>
-            </div>
-
-            <!-- Usuario -->
-            <div class="user-profile d-flex align-items-center position-relative">
-
-                <div class="user-info text-end me-3">
-                    <span class="name d-block fw-bold">
-                        Empleado 1
-                    </span>
-
-                    <span class="role text-muted" style="font-size:0.85rem;">
-                        Administrador
-                    </span>
-                </div>
-
-                <div class="avatar" id="userAvatar">
-                    <i class="fa fa-user-o"></i>
-                </div>
-
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="#">
-                        <i class="fa fa-sign-out me-2"></i>
-                        Cerrar sesión
-                    </a>
-                </div>
-
-            </div>
-
-        </header>
-
-        <main class="main-content">
-            @yield('content')
-        </main>
-
-    </div>
+    <footer>
+        © 2026
+    </footer>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('js/layout.js') }}"></script>
-
+@stack('scripts')
 </body>
 </html>
