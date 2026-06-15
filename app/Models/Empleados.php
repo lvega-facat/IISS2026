@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Empleados
@@ -42,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Empleados extends Model
 {
+	use SoftDeletes;
+
 	protected $table = 'empleados';
 
 	protected $casts = [
