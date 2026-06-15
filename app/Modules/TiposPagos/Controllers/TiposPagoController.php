@@ -22,7 +22,9 @@ class TiposPagoController extends Controller
 
     public function index()
     {
-        return view('Modules.TiposPagos.index');
+        $tiposPago = TiposPago::orderBy('id')->get();
+
+        return view('Modules.TiposPagos.index', compact('tiposPago'));
     }
 
     public function create()
@@ -47,7 +49,14 @@ class TiposPagoController extends Controller
 
     public function edit(int $id)
     {
-        return view('Modules.TiposPagos.form');
+        try {
+            $tipoPago = TiposPago::findOrFail($id);
+        } catch (ModelNotFoundException) {
+            return redirect()->route('tipos-pago.index')
+                ->with('error', 'Tipo de pago no encontrado');
+        }
+
+        return view('Modules.TiposPagos.form', compact('tipoPago'));
     }
 
     public function update(Request $request, int $id)

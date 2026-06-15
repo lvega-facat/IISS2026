@@ -3,9 +3,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-    <title>@yield('title', 'Mi App')</title>
-=======
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>HumanCore - @yield('title')</title>
@@ -17,15 +14,8 @@
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
 
     @stack('styles')
->>>>>>> c1a239831a048ff324cab09bf1c6f2340376d105
 </head>
 <body>
-
-<<<<<<< HEAD
-    <header>
-        <h1>Mi sistema</h1>
-    </header>
-=======
 <div class="wrapper">
 
     <!-- =========================================
@@ -93,28 +83,28 @@
             </li>
 
             <!-- Configuración de Contratos -->
-<li>
-    <a href="#configContratosSubmenu"
-       class="nav-link-custom dropdown-toggle"
-       data-bs-toggle="collapse"
-       aria-expanded="false">
+            <li>
+                <a href="#configContratosSubmenu"
+                   class="nav-link-custom dropdown-toggle"
+                   data-bs-toggle="collapse"
+                   aria-expanded="false">
 
-        <i class="fa fa-file-text me-2"></i>
-        Contratos
-    </a>
+                    <i class="fa fa-file-text me-2"></i>
+                    Contratos
+                </a>
 
-    <ul class="collapse list-unstyled submenu"
-        id="configContratosSubmenu"
-        data-bs-parent="#sidebarMenu">
+                <ul class="collapse list-unstyled submenu"
+                    id="configContratosSubmenu"
+                    data-bs-parent="#sidebarMenu">
 
-        <li><a href="#Profesiones">Profesiones</a></li>
-        <li><a href="#Horarios">Horarios</a></li>
-        <li><a href="#tiposdepago">Tipos de Pago</a></li>
-        <li><a href="#frecuencias">Frecuencias</a></li>
-        <li><a href="#tiposDeContrado">Tipos de Contrato</a></li>
+                    <li><a href="#Profesiones">Profesiones</a></li>
+                    <li><a href="#Horarios">Horarios</a></li>
+                    <li><a href="#tiposdepago">Tipos de Pago</a></li>
+                    <li><a href="#frecuencias">Frecuencias</a></li>
+                    <li><a href="#tiposDeContrado">Tipos de Contrato</a></li>
 
-    </ul>
-</li>
+                </ul>
+            </li>
 
             <!-- Control de Asistencia -->
             <li>
@@ -166,10 +156,6 @@
             </li>
 
         </ul>
->>>>>>> c1a239831a048ff324cab09bf1c6f2340376d105
-
-    <nav>
-        Menú aquí
     </nav>
 
     <main>
@@ -180,5 +166,9 @@
         © 2026
     </footer>
 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+@stack('scripts')
 </body>
 </html>
