@@ -3,31 +3,31 @@
 use App\Modules\Empleados\Controllers\EmpleadosController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('empleados')->middleware(['auth'])->name('empleados.')->group(function () {
+Route::prefix('empleados')->middleware(['auth'])->group(function () {
 
-    // Listado y búsqueda — HU-EMP-019
-    Route::get('/', [EmpleadosController::class, 'index'])->name('index');
+    // Listado y búsqueda
+    Route::get('/', [EmpleadosController::class, 'index'])->name('index')->middleware('permisos:' . Permisos::EMPLEADOS_VER);
 
     // Ficha de detalle
     Route::get('/{empleado}', [EmpleadosController::class, 'show'])->name('show');
 
-    // Registro — HU-EMP-016
+    // Registro 
     Route::get('/create', [EmpleadosController::class, 'create'])->name('create');
     Route::post('/', [EmpleadosController::class, 'store'])->name('store');
 
-    // Edición — HU-EMP-017
+    // Edición
     Route::get('/{empleado}/edit', [EmpleadosController::class, 'edit'])->name('edit');
     Route::put('/{empleado}', [EmpleadosController::class, 'update'])->name('update');
 
-    // Cambio de cargo/departamento con historial — HU-EMP-017
+    // Cambio de cargo/departamento con historial 
     Route::patch('/{empleado}/cargo', [EmpleadosController::class, 'cambiarCargo'])->name('cargo');
 
-    // Baja lógica — HU-EMP-017
+    // Baja lógica 
     Route::delete('/{empleado}', [EmpleadosController::class, 'destroy'])->name('destroy');
 
-    // Restaurar empleado dado de baja — HU-EMP-017
+    // Restaurar empleado dado de baja 
     Route::patch('/{empleado}/restaurar', [EmpleadosController::class, 'restore'])->name('restore');
 
-    // Exportar ficha PDF — HU-EMP-016
+    // Exportar ficha PDF 
     Route::get('/{empleado}/exportar/pdf', [EmpleadosController::class, 'exportarPDF'])->name('exportar.pdf');
 });
