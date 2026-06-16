@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Frecuencias de Pago')
+@section('title', 'Tipos de Pago')
 
-@section('page-title', 'Frecuencias de Pago')
-@section('page-subtitle', 'Gestión de frecuencias de pago utilizadas por la organización')
+@section('page-title', 'Tipos de Pago')
+@section('page-subtitle', 'Gestión de tipos de pago utilizados por la organización')
 
 @section('content')
 
@@ -29,9 +29,9 @@
     <div class="card top-card mb-4">
         <div class="card-body">
 
-            <a href="{{ route('frecuencia-pago.create') }}" class="btn btn-primary btn-new">
+            <a href="{{ route('tipos-pago.create') }}" class="btn btn-primary btn-new">
                 <i class="fa fa-plus me-2"></i>
-                Nueva Frecuencia de Pago
+                Nuevo Tipo de Pago
             </a>
 
         </div>
@@ -47,7 +47,7 @@
                 <input
                     type="text"
                     class="search-input"
-                    placeholder="Buscar frecuencia de pago">
+                    placeholder="Buscar tipo de pago">
             </div>
 
             <div class="filter-group">
@@ -67,28 +67,28 @@
         </div>
 
         {{-- CABECERA --}}
-        <div class="list-header frecuencia-header">
+        <div class="list-header tipo-pago-header">
             <div>ID</div>
-            <div>Frecuencia de Pago</div>
+            <div>Tipo de Pago</div>
             <div>Descripción</div>
             <div class="text-center">Estado</div>
             <div class="text-end">Acciones</div>
         </div>
 
         {{-- FILAS --}}
-        @forelse($frecuenciasPago as $fp)
+        @forelse($tiposPago as $tp)
 
-            <div class="cargo-row frecuencia-row">
+            <div class="cargo-row tipo-pago-row">
 
-                <div>{{ $fp->id }}</div>
+                <div>{{ $tp->id }}</div>
 
-                <div>{{ $fp->nombre }}</div>
+                <div>{{ $tp->nombre }}</div>
 
-                <div>{{ $fp->descripcion ?? '—' }}</div>
+                <div>{{ $tp->descripcion ?? '—' }}</div>
 
                 <div class="text-center">
-                    <span class="status-badge {{ $fp->estado ? 'active' : 'inactive' }}">
-                        {{ $fp->estado ? 'Activo' : 'Inactivo' }}
+                    <span class="status-badge {{ $tp->estado ? 'active' : 'inactive' }}">
+                        {{ $tp->estado ? 'Activo' : 'Inactivo' }}
                     </span>
                 </div>
 
@@ -105,19 +105,25 @@
                         <ul class="dropdown-menu dropdown-menu-end">
 
                             <li>
-                                <a class="dropdown-item" href="{{ route('frecuencia-pago.edit', $fp->id) }}">
+                                <a class="dropdown-item" href="{{ route('tipos-pago.edit', $tp->id) }}">
                                     <i class="fa fa-pencil me-2"></i>Editar
                                 </a>
                             </li>
 
                             <li>
-                                <form action="{{ route('frecuencia-pago.toggle', $fp->id) }}" method="POST" class="d-inline">
+                                <a class="dropdown-item" href="{{ route('tipos-pago.gestionar', $tp->id) }}">
+                                    <i class="fa fa-link me-2"></i>Gestionar Frecuencias
+                                </a>
+                            </li>
+
+                            <li>
+                                <form action="{{ route('tipos-pago.toggle', $tp->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit"
-                                        class="dropdown-item {{ $fp->estado ? 'text-warning' : 'text-success' }}">
-                                        <i class="fa {{ $fp->estado ? 'fa-ban' : 'fa-check' }} me-2"></i>
-                                        {{ $fp->estado ? 'Desactivar' : 'Reactivar' }}
+                                        class="dropdown-item {{ $tp->estado ? 'text-warning' : 'text-success' }}">
+                                        <i class="fa {{ $tp->estado ? 'fa-ban' : 'fa-check' }} me-2"></i>
+                                        {{ $tp->estado ? 'Desactivar' : 'Reactivar' }}
                                     </button>
                                 </form>
                             </li>
@@ -125,7 +131,7 @@
                             <li>
                                 <a class="dropdown-item text-danger" href="#"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#eliminarFrecuenciaPago{{ $fp->id }}">
+                                    data-bs-target="#eliminarTipoPago{{ $tp->id }}">
                                     <i class="fa fa-trash me-2"></i>Eliminar
                                 </a>
                             </li>
@@ -138,23 +144,23 @@
 
             </div>
 
-            @include('Modules.contrato.frecuencia-pago.components.modal-eliminar', [
-                'id'     => $fp->id,
-                'nombre' => $fp->nombre,
+            @include('Modules.contrato.tipos-pago.components.modal-eliminar', [
+                'id'     => $tp->id,
+                'nombre' => $tp->nombre,
             ])
 
         @empty
 
             <div class="empty-state text-center py-5">
-                <p class="text-muted mb-0">No hay frecuencias de pago registradas.</p>
+                <p class="text-muted mb-0">No hay tipos de pago registrados.</p>
             </div>
 
         @endforelse
 
         {{-- PAGINACIÓN --}}
-        @if(method_exists($frecuenciasPago, 'links'))
+        @if(method_exists($tiposPago, 'links'))
             <div class="custom-pagination">
-                {{ $frecuenciasPago->links() }}
+                {{ $tiposPago->links() }}
             </div>
         @endif
 
